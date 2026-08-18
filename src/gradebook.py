@@ -16,9 +16,9 @@ class Gradebook:
             raise ValueError("Student cannot be None")
         
         # Store student with student_id as key
-        key = student.student_id  
+        key = student.id_number   
         self.students[key] = student
-        print(f"Added student: {student.name} (Roll No: {student.student_id})")
+        print(f"Added student: {student.name} (Roll No: {student.id_number})")
         
         
         
