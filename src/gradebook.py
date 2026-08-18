@@ -15,8 +15,10 @@ class Gradebook:
         if not student:
             raise ValueError("Student cannot be None")
         
-        # Store student with roll_no as key
-        # The next line will cause conflicts!
-        key = student.roll_no  # This line will be changed
+        # Store student with student_id as key
+        key = student.student_id  
         self.students[key] = student
-        print(f"Added student: {student.name} (Roll No: {student.roll_no})")
+        print(f"Added student: {student.name} (Roll No: {student.student_id})")
+        
+        
+        
