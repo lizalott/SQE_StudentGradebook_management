@@ -1,2 +1,2 @@
 # sqe-library-management
-# this is a library management system that keep recodes of the book in a library. That includes book title
+# this is a library management system that keep recodes of the book in a library. That includes book title, author name, and issu details. It is linked to student's database, so returning and issuing book is easy.
