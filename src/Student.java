@@ -14,7 +14,9 @@ public class Student {
     }
     
     public void addScore(double score) {
-        // Validation in next commit
+         if (score < 0 || score > 100) {
+            throw new IllegalArgumentException("Score must be between 0 and 100");
+        }
         scores.add(score);
     }
     
