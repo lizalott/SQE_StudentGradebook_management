@@ -7,8 +7,8 @@ class Gradebook:
     
     def __init__(self):
         self.students = {}
-        self.course_name = "Library Science 101"
-        self.semester = "Fall 2026"
+        self.course_name = "Library history 101"
+        self.tenure = " 2026"
     
     def add_student(self, student):
         """Add a student to the gradebook."""
