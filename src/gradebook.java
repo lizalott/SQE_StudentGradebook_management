@@ -20,16 +20,25 @@ public class Gradebook {
         this.semester = "Fall 2026";
     }
     
+    /**
+     * Adds a student to the gradebook with duplicate ID validation.
+     * 
+     * @param student The student to add (must not be null)
+     * @throws IllegalArgumentException if student is null or ID already exists
+     */
     public void addStudent(Student student) {
+        // Validate student is not null
         if (student == null) {
             throw new IllegalArgumentException("Student cannot be null");
         }
         
+        // FIX: Use studentId as key directly
         String key = student.getStudentId();
         
+        // FIX: Check for duplicate ID
         if (students.containsKey(key)) {
             throw new IllegalArgumentException(
-                String.format("Student with ID %s already exists", key)
+                String.format("Student with ID %s already exists in the gradebook", key)
             );
         }
         
@@ -38,8 +47,29 @@ public class Gradebook {
                          student.getName(), student.getStudentId());
     }
     
+    /**
+     * Finds a student by their unique ID.
+     * 
+     * @param studentId The student ID to search for
+     * @return Optional containing the student if found
+     */
     public Optional<Student> findStudent(String studentId) {
         return Optional.ofNullable(students.get(studentId));
+    }
+    
+    /**
+     * Removes a student from the gradebook.
+     * 
+     * @param studentId The ID of the student to remove
+     * @return true if removed, false if not found
+     */
+    public boolean removeStudent(String studentId) {
+        if (students.containsKey(studentId)) {
+            students.remove(studentId);
+            System.out.printf("Removed student with ID: %s%n", studentId);
+            return true;
+        }
+        return false;
     }
     
     /**
@@ -50,14 +80,12 @@ public class Gradebook {
      * @throws IllegalArgumentException if student not found
      */
     public Optional<Double> calculateAverage(String studentId) {
-        // FIX: Handle case where student doesn't exist
         Student student = findStudent(studentId)
             .orElseThrow(() -> new IllegalArgumentException("Student not found: " + studentId));
         
-        // FIX: Handle case where student has no scores
         List<Double> scores = student.getAssessmentScores();
         if (scores.isEmpty()) {
-            return Optional.empty(); // Return empty instead of dividing by zero
+            return Optional.empty();
         }
         
         double sum = 0.0;
@@ -81,6 +109,14 @@ public class Gradebook {
     
     public Map<String, Student> getStudents() {
         return new HashMap<>(students);
+    }
+    
+    public int getStudentCount() {
+        return students.size();
+    }
+    
+    public boolean isStudentIdUnique(String studentId) {
+        return !students.containsKey(studentId);
     }
     
     public String getCourseName() {
