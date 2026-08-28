@@ -1,224 +1,191 @@
-// src/Student.java
+package com.library.models;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
- * Student module for managing student records in the library system.
- * 
- * This class handles student information and academic scores with proper validation.
- * 
- * @author Your Name
- * @version 1.0
+ * Represents a student in the library management system.
  */
 public class Student {
     
-    /**
-     * The student's full name
-     */
     private String name;
-    
-    /**
-     * Unique identifier for the student (format: STU-XXX)
-     */
     private String studentId;
+    private List<Double> assessmentScores;
     
-    /**
-     * List of scores for the student
-     */
-    private List<Double> scores;
+    private static final String STUDENT_ID_PATTERN = "^STU-\\d{3}$";
+    private static final double MAX_SCORE = 100.0;
+    private static final double MIN_SCORE = 0.0;
     
-    /**
-     * Initialize a new Student instance.
-     * 
-     * @param name Student's full name (non-empty string)
-     * @param studentId Unique student identifier (format: STU-XXX)
-     * @throws IllegalArgumentException If name is empty or studentId format is invalid
-     */
     public Student(String name, String studentId) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Student name cannot be empty");
-        }
-        if (studentId == null || !studentId.startsWith("STU-")) {
-            throw new IllegalArgumentException("Student ID must be in format STU-XXX");
-        }
-        
+        validateName(name);
         this.name = name.trim();
-        this.studentId = studentId;
-        this.scores = new ArrayList<>();
+        this.studentId = validateAndNormalizeStudentId(studentId);
+        this.assessmentScores = new ArrayList<>();
     }
     
-    /**
-     * Add a score to the student's record with validation.
-     * 
-     * This method validates that the score is non-negative before adding
-     * it to the student's scores list. Scores are stored as doubles for
-     * precision.
-     * 
-     * @param score The score to add (must be >= 0)
-     * @throws IllegalArgumentException If score is negative
-     */
-    public void addScore(double score) {
-        // Validate score is non-negative
-        if (score < 0) {
+    private void validateName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Student name cannot be null or empty");
+        }
+    }
+    
+    private String validateAndNormalizeStudentId(String studentId) {
+        if (studentId == null || studentId.trim().isEmpty()) {
+            throw new IllegalArgumentException("Student ID cannot be null or empty");
+        }
+        
+        String normalizedId = studentId.trim().toUpperCase();
+        
+        if (!normalizedId.matches(STUDENT_ID_PATTERN)) {
             throw new IllegalArgumentException(
-                String.format("Score cannot be negative. Received: %.1f", score)
+                String.format("Student ID must be in format 'STU-XXX' (e.g., STU-001). Received: '%s'", 
+                              studentId)
             );
         }
         
-        // Add the valid score
-        this.scores.add(score);
+        return normalizedId;
     }
     
     /**
-     * Calculate the average of all scores.
+     * Adds a score to the student's record with comprehensive validation.
      * 
-     * @return The average score as a Double, or null if no scores exist
+     * @param score The score to add (must be between 0 and 100 inclusive)
+     * @throws IllegalArgumentException if score is negative or > 100
+     * @throws NullPointerException if score is null
      */
-    public Double getAverageScore() {
-        if (scores.isEmpty()) {
-            return null;
+    public void addScore(Double score) {
+        // FIX: Added comprehensive validation
+        validateScore(score);
+        assessmentScores.add(score);
+    }
+    
+    /**
+     * Validates that the score is not null and is within acceptable range.
+     * 
+     * @param score The score to validate
+     * @throws IllegalArgumentException if score is outside range [0, 100]
+     * @throws NullPointerException if score is null
+     */
+    private void validateScore(Double score) {
+        // Check for null
+        if (score == null) {
+            throw new NullPointerException("Score cannot be null");
         }
-        double sum = 0;
-        for (double score : scores) {
-            sum += score;
+        
+        // Check for NaN or Infinite
+        if (score.isNaN() || score.isInfinite()) {
+            throw new IllegalArgumentException("Score must be a finite number");
         }
-        return sum / scores.size();
-    }
-    
-    /**
-     * Get the highest score.
-     * 
-     * @return The highest score as a Double, or null if no scores exist
-     */
-    public Double getHighestScore() {
-        if (scores.isEmpty()) {
-            return null;
+        
+        // Check range (0 to 100)
+        if (score < MIN_SCORE || score > MAX_SCORE) {
+            throw new IllegalArgumentException(
+                String.format("Score must be between %.1f and %.1f. Received: %.2f", 
+                              MIN_SCORE, MAX_SCORE, score)
+            );
         }
-        return Collections.max(scores);
     }
     
     /**
-     * Get the lowest score.
+     * Adds multiple scores at once.
      * 
-     * @return The lowest score as a Double, or null if no scores exist
+     * @param scores Array of scores to add
+     * @throws IllegalArgumentException if any score is invalid
      */
-    public Double getLowestScore() {
-        if (scores.isEmpty()) {
-            return null;
-        }
-        return Collections.min(scores);
-    }
-    
-    /**
-     * Get the total number of scores.
-     * 
-     * @return The count of scores
-     */
-    public int getScoreCount() {
-        return scores.size();
-    }
-    
-    /**
-     * Check if the student has any scores.
-     * 
-     * @return true if scores exist, false otherwise
-     */
-    public boolean hasScores() {
-        return !scores.isEmpty();
-    }
-    
-    /**
-     * Get the student's name.
-     * 
-     * @return The student's full name
-     */
-    public String getName() {
-        return name;
-    }
-    
-    /**
-     * Get the student's ID.
-     * 
-     * @return The student's unique identifier
-     */
-    public String getStudentId() {
-        return studentId;
-    }
-    
-    /**
-     * Get an unmodifiable list of scores.
-     * 
-     * @return An unmodifiable view of the scores list
-     */
-    public List<Double> getScores() {
-        return Collections.unmodifiableList(scores);
-    }
-    
-    /**
-     * Add multiple scores at once.
-     * 
-     * @param newScores List of scores to add
-     * @throws IllegalArgumentException If any score is negative
-     */
-    public void addScores(List<Double> newScores) {
-        if (newScores == null) {
-            return;
-        }
-        for (Double score : newScores) {
-            if (score == null) {
-                continue;
-            }
+    public void addScores(Double... scores) {
+        for (Double score : scores) {
             addScore(score);
         }
     }
     
-    /**
-     * Clear all scores from the student's record.
-     */
-    public void clearScores() {
-        scores.clear();
+    public Optional<Double> getAverageScore() {
+        if (assessmentScores.isEmpty()) {
+            return Optional.empty();
+        }
+        
+        return Optional.of(assessmentScores.stream()
+                .mapToDouble(Double::doubleValue)
+                .average()
+                .orElse(0.0));
     }
     
-    /**
-     * Returns a string representation of the student.
-     * 
-     * @return A formatted string containing student information
-     */
+    public Optional<Double> getHighestScore() {
+        if (assessmentScores.isEmpty()) {
+            return Optional.empty();
+        }
+        
+        return Optional.of(assessmentScores.stream()
+                .mapToDouble(Double::doubleValue)
+                .max()
+                .orElse(0.0));
+    }
+    
+    public Optional<Double> getLowestScore() {
+        if (assessmentScores.isEmpty()) {
+            return Optional.empty();
+        }
+        
+        return Optional.of(assessmentScores.stream()
+                .mapToDouble(Double::doubleValue)
+                .min()
+                .orElse(0.0));
+    }
+    
+    public double getTotalScore() {
+        return assessmentScores.stream()
+                .mapToDouble(Double::doubleValue)
+                .sum();
+    }
+    
+    public int getScoreCount() {
+        return assessmentScores.size();
+    }
+    
+    public boolean hasScores() {
+        return !assessmentScores.isEmpty();
+    }
+    
+    // Getters and Setters
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        validateName(name);
+        this.name = name.trim();
+    }
+    
+    public String getStudentId() {
+        return studentId;
+    }
+    
+    public List<Double> getAssessmentScores() {
+        return new ArrayList<>(assessmentScores);
+    }
+    
+    public void clearScores() {
+        assessmentScores.clear();
+    }
+    
     @Override
     public String toString() {
-        Double average = getAverageScore();
-        String avgStr = (average != null) ? String.format("%.2f", average) : "No scores";
-        return String.format(
-            "Student{name='%s', studentId='%s', scores=%s, average=%s}",
-            name, studentId, scores, avgStr
-        );
+        return String.format("Student{name='%s', studentId='%s', scores=%d, avg=%.2f}",
+                name, studentId, getScoreCount(), 
+                getAverageScore().orElse(0.0));
     }
     
-    /**
-     * Example usage of the Student class.
-     * 
-     * @param args Command line arguments (not used)
-     */
-    public static void main(String[] args) {
-        // Example usage
-        try {
-            Student student = new Student("John Doe", "STU-001");
-            student.addScore(85.5);
-            student.addScore(92.0);
-            
-            System.out.println("Student: " + student.getName());
-            System.out.println("ID: " + student.getStudentId());
-            System.out.println("Average score: " + student.getAverageScore());
-            System.out.println("Highest score: " + student.getHighestScore());
-            System.out.println("Lowest score: " + student.getLowestScore());
-            System.out.println("Full details: " + student);
-            
-            // This will throw an exception
-            // student.addScore(-10);
-            
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error: " + e.getMessage());
-        }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        
+        Student student = (Student) obj;
+        return studentId.equals(student.studentId);
+    }
+    
+    @Override
+    public int hashCode() {
+        return studentId.hashCode();
     }
 }
