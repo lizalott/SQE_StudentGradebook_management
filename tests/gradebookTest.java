@@ -67,6 +67,8 @@ class GradebookTest {
         assertEquals(100.0, avg, 0.001);
     }
     
+
+
     @Test
     @DisplayName("Should return calculated average when default method called with scores")
     void shouldReturnCalculatedAverageWhenScoresExist() {
@@ -77,4 +79,67 @@ class GradebookTest {
         double avg = gradebook.calculateAverageOrDefault("STU-001", 0.0);
         assertEquals(90.0, avg, 0.001);
     }
+
+ @Test
+    @DisplayName("Should reject duplicate student ID")
+    void shouldRejectDuplicateStudentId() {
+        // FIX: Test that duplicate IDs are rejected
+        Student duplicate = new Student("Jane Smith", "STU-001");
+        
+        IllegalArgumentException exception = assertThrows(
+            IllegalArgumentException.class,
+            () -> gradebook.addStudent(duplicate)
+        );
+        
+        assertTrue(exception.getMessage().contains("already exists"));
+    }
+    
+    @Test
+    @DisplayName("Should allow students with different IDs")
+    void shouldAllowDifferentStudentIds() {
+        // FIX: Test that different IDs are accepted
+        Student student2 = new Student("Jane Smith", "STU-002");
+        assertDoesNotThrow(() -> gradebook.addStudent(student2));
+        
+        assertEquals(2, gradebook.getStudentCount());
+    }
+    
+    @Test
+    @DisplayName("Should find student by ID")
+    void shouldFindStudentById() {
+        Optional<Student> found = gradebook.findStudent("STU-001");
+        assertTrue(found.isPresent());
+        assertEquals("John Doe", found.get().getName());
+    }
+    
+    @Test
+    @DisplayName("Should not find student with invalid ID")
+    void shouldNotFindStudentWithInvalidId() {
+        Optional<Student> found = gradebook.findStudent("STU-999");
+        assertTrue(found.isEmpty());
+    }
+    
+    @Test
+    @DisplayName("Should remove student by ID")
+    void shouldRemoveStudentById() {
+        boolean removed = gradebook.removeStudent("STU-001");
+        assertTrue(removed);
+        assertEquals(0, gradebook.getStudentCount());
+    }
+    
+    @Test
+    @DisplayName("Should not remove student with invalid ID")
+    void shouldNotRemoveStudentWithInvalidId() {
+        boolean removed = gradebook.removeStudent("STU-999");
+        assertFalse(removed);
+        assertEquals(1, gradebook.getStudentCount());
+    }
+    
+    @Test
+    @DisplayName("Should check if student ID is unique")
+    void shouldCheckIfStudentIdIsUnique() {
+        assertFalse(gradebook.isStudentIdUnique("STU-001"));
+        assertTrue(gradebook.isStudentIdUnique("STU-002"));
+    }
+
 }
