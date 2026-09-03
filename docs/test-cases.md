@@ -274,3 +274,48 @@
 | Critical | 2 | TC-002, TC-003 |
 | High | 6 | TC-001, TC-004, TC-005, TC-006, TC-007, TC-008, TC-010 |
 | Medium | 4 | TC-009, TC-011, TC-012 |
+
+
+
+# Test Cases - GradeBook Module
+
+## Test Execution Summary
+
+| Metric | Value |
+|--------|-------|
+| **Date Executed** | 2026-08-29 |
+| **Total Test Cases** | 12 |
+| **Passed** | 8 |
+| **Failed** | 4 |
+| **Blocked** | 0 |
+| **Pass Rate** | 66.7% |
+| **Defects Found** | 3 |
+
+---
+
+## Test Case Execution Results
+
+| TC ID | Title | Status | Actual Result | Defect ID |
+|-------|-------|--------|---------------|-----------|
+| TC-001 | Add Valid Score | ✅ PASS | Score 85.5 added successfully | - |
+| TC-002 | Reject negative score | ❌ FAIL | Negative score -15.0 was accepted! | #15 |
+| TC-003 | Reject score > 100 | ❌ FAIL | Score 105.0 was accepted! | #15 |
+| TC-004 | Reject null score | ❌ FAIL | Null score was accepted! | #15 |
+| TC-005 | Add score at minimum boundary (0) | ✅ PASS | Score 0.0 added successfully | - |
+| TC-006 | Add score at maximum boundary (100) | ✅ PASS | Score 100.0 added successfully | - |
+| TC-007 | Calculate average with scores | ✅ PASS | Average: 90.3333333333333 | - |
+| TC-008 | Calculate average with empty scores | ❌ FAIL | Division by zero error occurred! | #16 |
+| TC-009 | Calculate average with single score | ✅ PASS | Average: 92.0 | - |
+| TC-010 | Reject duplicate student ID |  PENDING | Not executed yet | - |
+| TC-011 | Find student by ID | ✅ PASS | Found student: Ivy Chen | - |
+| TC-012 | Calculate highest score | ✅ PASS | Highest: 95.5 | - |
+
+---
+
+## Defects Found
+
+| Defect ID | Title | Severity | Priority | Status |
+|-----------|-------|----------|----------|--------|
+| #15 | Missing validation in Student.addScore() | Critical | P0 | Open |
+| #16 | Division by zero in average calculation | High | P1 | Open |
+| #17 | Duplicate student IDs allowed in Gradebook | High | P1 | Open |

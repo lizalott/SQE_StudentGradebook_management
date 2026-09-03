@@ -6,7 +6,6 @@ import java.util.Optional;
 
 /**
  * Represents a student in the library management system.
- * WARNING: This version contains bugs for testing purposes!
  */
 public class Student {
     
@@ -48,39 +47,44 @@ public class Student {
         return normalizedId;
     }
     
-    /**
-     * BUG #1: Negative scores are accepted!
-     * This method doesn't validate that scores are >= 0
-     */
     public void addScore(Double score) {
-        // BUG: Missing validation for negative scores
-        // BUG: Missing validation for scores > 100
-        // BUG: Missing validation for null scores
+        validateScore(score);
         assessmentScores.add(score);
     }
     
-    /**
-     * BUG #2: NullPointerException when adding null scores
-     * But we're supposed to handle this gracefully
-     */
-    public void addScores(Double... scores) {
-        for (Double score : scores) {
-            // BUG: Null scores cause NullPointerException
-            assessmentScores.add(score);
+    private void validateScore(Double score) {
+        if (score == null) {
+            throw new NullPointerException("Score cannot be null");
+        }
+        
+        if (score.isNaN() || score.isInfinite()) {
+            throw new IllegalArgumentException("Score must be a finite number");
+        }
+        
+        if (score < MIN_SCORE || score > MAX_SCORE) {
+            throw new IllegalArgumentException(
+                String.format("Score must be between %.1f and %.1f. Received: %.2f", 
+                              MIN_SCORE, MAX_SCORE, score)
+            );
         }
     }
     
-    /**
-     * BUG #3: Division by zero when no scores exist
-     * The average calculation doesn't check for empty list
-     */
+    public void addScores(Double... scores) {
+        for (Double score : scores) {
+            addScore(score);
+        }
+    }
+    
     public Optional<Double> getAverageScore() {
-        // BUG: Division by zero when scores list is empty
+        if (assessmentScores.isEmpty()) {
+            return Optional.empty();
+        }
+        
         double sum = 0.0;
         for (Double score : assessmentScores) {
             sum += score;
         }
-        // BUG: This will throw ArithmeticException when size == 0
+        
         return Optional.of(sum / assessmentScores.size());
     }
     
