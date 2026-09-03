@@ -1,12 +1,10 @@
-package com.library.services;
-
-import com.library.models.Student;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 /**
  * Gradebook service for managing student grades.
+ * Handles student registration, score management, and statistics.
  */
 public class Gradebook {
     
@@ -14,10 +12,25 @@ public class Gradebook {
     private String courseName;
     private String semester;
     
+    /**
+     * Constructs a new Gradebook with default course information.
+     */
     public Gradebook() {
         this.students = new HashMap<>();
         this.courseName = "Library Science 101";
         this.semester = "Fall 2026";
+    }
+    
+    /**
+     * Constructs a new Gradebook with custom course information.
+     * 
+     * @param courseName The name of the course
+     * @param semester The semester
+     */
+    public Gradebook(String courseName, String semester) {
+        this.students = new HashMap<>();
+        this.courseName = courseName;
+        this.semester = semester;
     }
     
     /**
@@ -32,10 +45,10 @@ public class Gradebook {
             throw new IllegalArgumentException("Student cannot be null");
         }
         
-        // FIX: Use studentId as key directly
+        // Use studentId as key
         String key = student.getStudentId();
         
-        // FIX: Check for duplicate ID
+        // Check for duplicate ID
         if (students.containsKey(key)) {
             throw new IllegalArgumentException(
                 String.format("Student with ID %s already exists in the gradebook", key)
@@ -51,10 +64,13 @@ public class Gradebook {
      * Finds a student by their unique ID.
      * 
      * @param studentId The student ID to search for
-     * @return Optional containing the student if found
+     * @return Optional containing the student if found, empty otherwise
      */
     public Optional<Student> findStudent(String studentId) {
-        return Optional.ofNullable(students.get(studentId));
+        if (studentId == null || studentId.trim().isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(students.get(studentId.trim()));
     }
     
     /**
@@ -64,8 +80,12 @@ public class Gradebook {
      * @return true if removed, false if not found
      */
     public boolean removeStudent(String studentId) {
-        if (students.containsKey(studentId)) {
-            students.remove(studentId);
+        if (studentId == null || studentId.trim().isEmpty()) {
+            return false;
+        }
+        
+        if (students.containsKey(studentId.trim())) {
+            students.remove(studentId.trim());
             System.out.printf("Removed student with ID: %s%n", studentId);
             return true;
         }
@@ -83,17 +103,7 @@ public class Gradebook {
         Student student = findStudent(studentId)
             .orElseThrow(() -> new IllegalArgumentException("Student not found: " + studentId));
         
-        List<Double> scores = student.getAssessmentScores();
-        if (scores.isEmpty()) {
-            return Optional.empty();
-        }
-        
-        double sum = 0.0;
-        for (Double score : scores) {
-            sum += score;
-        }
-        
-        return Optional.of(sum / scores.size());
+        return student.getAverageScore();
     }
     
     /**
@@ -107,18 +117,77 @@ public class Gradebook {
         return calculateAverage(studentId).orElse(defaultValue);
     }
     
+    /**
+     * Gets the highest score for a student.
+     * 
+     * @param studentId The ID of the student
+     * @return Optional containing the highest score, or empty if no scores exist
+     * @throws IllegalArgumentException if student not found
+     */
+    public Optional<Double> getHighestScore(String studentId) {
+        Student student = findStudent(studentId)
+            .orElseThrow(() -> new IllegalArgumentException("Student not found: " + studentId));
+        
+        return student.getHighestScore();
+    }
+    
+    /**
+     * Gets the lowest score for a student.
+     * 
+     * @param studentId The ID of the student
+     * @return Optional containing the lowest score, or empty if no scores exist
+     * @throws IllegalArgumentException if student not found
+     */
+    public Optional<Double> getLowestScore(String studentId) {
+        Student student = findStudent(studentId)
+            .orElseThrow(() -> new IllegalArgumentException("Student not found: " + studentId));
+        
+        return student.getLowestScore();
+    }
+    
+    /**
+     * Gets the total score for a student.
+     * 
+     * @param studentId The ID of the student
+     * @return The total score, or 0.0 if no scores exist
+     * @throws IllegalArgumentException if student not found
+     */
+    public double getTotalScore(String studentId) {
+        Student student = findStudent(studentId)
+            .orElseThrow(() -> new IllegalArgumentException("Student not found: " + studentId));
+        
+        return student.getTotalScore();
+    }
+    
+    /**
+     * Gets all students in the gradebook.
+     * 
+     * @return A copy of the student map
+     */
     public Map<String, Student> getStudents() {
         return new HashMap<>(students);
     }
     
+    /**
+     * Gets the number of students in the gradebook.
+     * 
+     * @return The student count
+     */
     public int getStudentCount() {
         return students.size();
     }
     
+    /**
+     * Checks if a student ID is unique.
+     * 
+     * @param studentId The student ID to check
+     * @return true if the ID is not already used
+     */
     public boolean isStudentIdUnique(String studentId) {
         return !students.containsKey(studentId);
     }
     
+    // Getters and Setters
     public String getCourseName() {
         return courseName;
     }
@@ -133,5 +202,11 @@ public class Gradebook {
     
     public void setSemester(String semester) {
         this.semester = semester;
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("Gradebook{course='%s', semester='%s', students=%d}",
+                courseName, semester, getStudentCount());
     }
 }
