@@ -47,11 +47,21 @@ public class Student {
         return normalizedId;
     }
     
+    /**
+     * Adds a score to the student's record with comprehensive validation.
+     * 
+     * @param score The score to add (must be between 0 and 100 inclusive)
+     * @throws IllegalArgumentException if score is negative or > 100
+     * @throws NullPointerException if score is null
+     */
     public void addScore(Double score) {
         validateScore(score);
         assessmentScores.add(score);
     }
     
+    /**
+     * Validates that the score is not null and is within acceptable range.
+     */
     private void validateScore(Double score) {
         if (score == null) {
             throw new NullPointerException("Score cannot be null");
@@ -75,7 +85,14 @@ public class Student {
         }
     }
     
+    /**
+     * FIXED: Calculates the average of all assessment scores.
+     * Now properly handles empty score list.
+     * 
+     * @return Optional containing the average, or empty if no scores exist
+     */
     public Optional<Double> getAverageScore() {
+        // FIX: Check for empty list to prevent division by zero
         if (assessmentScores.isEmpty()) {
             return Optional.empty();
         }

@@ -207,29 +207,32 @@ public class TestRunner {
         System.out.println();
     }
     
-    // ============================================
-    // TC-008: Calculate Average with Empty Scores
-    // ============================================
-    private static void testTC008() {
-        System.out.println("TC-008: Calculate Average with Empty Scores");
-        try {
-            Student s = new Student("Frank White", "STU-008");
-            Optional<Double> avg = s.getAverageScore();
-            
-            // BUG: This should return empty but throws exception
-            // Since this is an expected bug, we mark it as FAIL
-            System.out.println("  ❌ FAIL - Division by zero error occurred! Bug #3 confirmed.");
-            failed++;
-        } catch (ArithmeticException e) {
-            System.out.println("  ❌ FAIL - Division by zero error occurred! Bug #3 confirmed.");
-            failed++;
-        } catch (Exception e) {
-            System.out.println("  ❌ FAIL - Exception thrown: " + e.getMessage() + " (Bug #3)");
+  // ============================================
+// TC-008: Calculate Average with Empty Scores
+// ============================================
+private static void testTC008() {
+    System.out.println("TC-008: Calculate Average with Empty Scores");
+    try {
+        Student s = new Student("Frank White", "STU-008");
+        Optional<Double> avg = s.getAverageScore();
+        
+        // FIX: Actually check the result!
+        if (avg.isEmpty()) {
+            System.out.println("  ✅ PASS - Returned empty (no division by zero)");
+            passed++;
+        } else {
+            System.out.println("  ❌ FAIL - Should return empty, got: " + avg.get());
             failed++;
         }
-        System.out.println();
+    } catch (ArithmeticException e) {
+        System.out.println("  ❌ FAIL - Division by zero error occurred!");
+        failed++;
+    } catch (Exception e) {
+        System.out.println("  ❌ FAIL - Exception thrown: " + e.getMessage());
+        failed++;
     }
-    
+    System.out.println();
+}
     // ============================================
     // TC-009: Calculate Average with Single Score
     // ============================================
