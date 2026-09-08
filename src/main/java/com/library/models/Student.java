@@ -105,6 +105,20 @@ public class Student {
         return Optional.of(sum / assessmentScores.size());
     }
     
+    /**
+ * Validates that the student has between 1 and 6 scores.
+ * 
+ * @throws IllegalArgumentException if score count is invalid
+ */
+public void validateScoreCount() {
+    int count = getScoreCount();
+    if (count == 0) {
+        throw new IllegalArgumentException("Student must have at least 1 score");
+    }
+    if (count > 6) {
+        throw new IllegalArgumentException("Student cannot have more than 6 scores");
+    }
+}
     public Optional<Double> getHighestScore() {
         if (assessmentScores.isEmpty()) {
             return Optional.empty();
