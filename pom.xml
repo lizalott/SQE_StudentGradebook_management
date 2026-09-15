@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ============================================ -->
+    <!-- PROJECT IDENTIFICATION                        -->
+    <!-- ============================================ -->
+    <groupId>com.library</groupId>
+    <artifactId>sqe-library-management</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>SQE Library Management System</name>
+    <description>
+        A comprehensive library management system for Software Quality Engineering course.
+        Includes GradeBook module with EP and BVA testing (Labs 1-6).
+    </description>
+    <url>https://github.com/YOUR_USERNAME/sqe-library-management</url>
+
+    <!-- ============================================ -->
+    <!-- PROPERTIES                                    -->
+    <!-- ============================================ -->
+    <properties>
+        <!-- Java version -->
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        
+        <!-- Dependency versions -->
+        <junit.version>5.10.0</junit.version>
+        <mockito.version>5.5.0</mockito.version>
+        <surefire.version>3.1.2</surefire.version>
+        <compiler.version>3.11.0</compiler.version>
+        <jacoco.version>0.8.10</jacoco.version>
+        <checkstyle.version>3.3.0</checkstyle.version>
+        <exec.version>3.1.0</exec.version>
+    </properties>
+
+    <!-- ============================================ -->
+    <!-- DEPENDENCIES                                  -->
+    <!-- ============================================ -->
+    <dependencies>
+        
+        <!-- JUnit 5 - Testing Framework -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- JUnit 5 BOM for version management -->
+        <dependency>
+            <groupId>org.junit</groupId>
+            <artifactId>junit-bom</artifactId>
+            <version>${junit.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+        
+        <!-- Mockito - Mocking Framework (for advanced testing) -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+    </dependencies>
+
+    <!-- ============================================ -->
+    <!-- BUILD CONFIGURATION                           -->
+    <!-- ============================================ -->
+    <build>
+        
+        <!-- Source directories -->
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>test/java</testSourceDirectory>
+        
+        <!-- Output directories -->
+        <outputDirectory>bin/main</outputDirectory>
+        <testOutputDirectory>bin/test</testOutputDirectory>
+        
+        <plugins>
+            
+            <!-- ============================================ -->
+            <!-- COMPILER PLUGIN                               -->
+            <!-- ============================================ -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler.version}</version>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                    <encoding>UTF-8</encoding>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+            
+            <!-- ============================================ -->
+            <!-- SUREFIRE PLUGIN - Run Tests                   -->
+            <!-- ============================================ -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                        <include>**/Test*.java</include>
+                        <include>**/*Tests.java</include>
+                        <include>**/*TestCase.java</include>
+                    </includes>
+                    <testFailureIgnore>false</testFailureIgnore>
+                    <argLine>
+                        --add-opens java.base/java.lang=ALL-UNNAMED
+                    </argLine>
+                </configuration>
+            </plugin>
+            
+            <!-- ============================================ -->
+            <!-- JACOCO PLUGIN - Code Coverage                 -->
+            <!-- ============================================ -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <element>BUNDLE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>LINE</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.80</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- ============================================ -->
+            <!-- EXEC PLUGIN - Run TestRunner                  -->
+            <!-- ============================================ -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec.version}</version>
+                <configuration>
+                    <mainClass>com.library.TestRunner</mainClass>
+                    <classpathScope>test</classpathScope>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>run-test-runner</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.library.TestRunner</mainClass>
+                            <arguments>
+                                <argument>--all</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- ============================================ -->
+            <!-- JAR PLUGIN - Package Application              -->
+            <!-- ============================================ -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.library.TestRunner</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            
+        </plugins>
+    </build>
+
+    <!-- ============================================ -->
+    <!-- PROFILES                                      -->
+    <!-- ============================================ -->
+    <profiles>
+        
+        <!-- Profile: Run only EP tests (Lab 5) -->
+        <profile>
+            <id>ep-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/ep/*Test.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <!-- Profile: Run only BVA tests (Lab 6) -->
+        <profile>
+            <id>bva-tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>**/bva/*Test.java</include>
+                            </includes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <!-- Profile: Run all tests (default) -->
+        <profile>
+            <id>all-tests</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        
+    </profiles>
+
+    <!-- ============================================ -->
+    <!-- REPORTING                                     -->
+    <!-- ============================================ -->
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>${surefire.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
+</project>
