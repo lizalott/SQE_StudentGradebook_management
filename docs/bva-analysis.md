@@ -2,7 +2,7 @@
 
 **Project:** SQE Library Management System  
 **Date:** 2026-09-17  
-**Author:** [Your Name]  
+**Author:** Liza Lott  
 
 ---
 

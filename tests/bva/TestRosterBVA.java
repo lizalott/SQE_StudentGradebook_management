@@ -19,10 +19,6 @@ public class TestRosterBVA {
         student = new Student("John Doe", "STU-001");
     }
     
-    // ============================================
-    // BOUNDARY 1: Domain Min (1 score)
-    // Values: 0, 1, 2
-    // ============================================
     @Test
     @DisplayName("BVA: 0 scores (value-1) - should fail")
     void testBoundary_0Scores_ThrowsException() {
@@ -45,11 +41,7 @@ public class TestRosterBVA {
         student.addScore(90.0);
         assertDoesNotThrow(() -> GradebookUtils.validateScoreCount(student));
     }
-    
-    // ============================================
-    // BOUNDARY 2: Domain Max (6 scores)
-    // Values: 5, 6, 7
-    // ============================================
+
     @Test
     @DisplayName("BVA: 5 scores (value-1) - should pass")
     void testBoundary_5Scores_Passes() {

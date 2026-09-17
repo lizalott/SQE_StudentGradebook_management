@@ -11,10 +11,7 @@ import com.library.utils.GradebookUtils;
 @DisplayName("Letter Grade - Boundary Value Analysis Tests")
 public class TestLetterGradeBVA {
     
-    // ============================================
-    // BOUNDARY 1: Domain Min (0)
-    // Values: -1, 0, 1
-    // ============================================
+   
     @ParameterizedTest
     @DisplayName("BVA: Domain minimum boundary (0)")
     @CsvSource({
@@ -31,10 +28,6 @@ public class TestLetterGradeBVA {
         }
     }
     
-    // ============================================
-    // BOUNDARY 2: F/D Cut-off (60)
-    // Values: 59, 60, 61
-    // ============================================
     @ParameterizedTest
     @DisplayName("BVA: F/D cut-off boundary (60)")
     @CsvSource({
@@ -46,10 +39,7 @@ public class TestLetterGradeBVA {
         assertEquals(expected, GradebookUtils.letterGrade(score));
     }
     
-    // ============================================
-    // BOUNDARY 3: D/C Cut-off (70)
-    // Values: 69, 70, 71
-    // ============================================
+ 
     @ParameterizedTest
     @DisplayName("BVA: D/C cut-off boundary (70)")
     @CsvSource({
