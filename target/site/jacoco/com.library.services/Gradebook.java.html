@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Gradebook.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SQE Library Management System</a> &gt; <a href="index.source.html" class="el_package">com.library.services</a> &gt; <span class="el_source">Gradebook.java</span></div><h1>Gradebook.java</h1><pre class="source lang-java linenums">package com.library.services;
+
+import com.library.models.Student;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+public class Gradebook {
+    
+    private final Map&lt;String, Student&gt; students;
+    private String courseName;
+    private String semester;
+    
+<span class="fc" id="L14">    public Gradebook() {</span>
+<span class="fc" id="L15">        this.students = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L16">        this.courseName = &quot;Library Science 101&quot;;</span>
+<span class="fc" id="L17">        this.semester = &quot;Fall 2026&quot;;</span>
+<span class="fc" id="L18">    }</span>
+    
+<span class="nc" id="L20">    public Gradebook(String courseName, String semester) {</span>
+<span class="nc" id="L21">        this.students = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L22">        this.courseName = courseName;</span>
+<span class="nc" id="L23">        this.semester = semester;</span>
+<span class="nc" id="L24">    }</span>
+    
+    public void addStudent(Student student) {
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">        if (student == null) {</span>
+<span class="nc" id="L28">            throw new IllegalArgumentException(&quot;Student cannot be null&quot;);</span>
+        }
+        
+<span class="fc" id="L31">        String key = student.getStudentId();</span>
+        
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        if (students.containsKey(key)) {</span>
+<span class="fc" id="L34">            throw new IllegalArgumentException(</span>
+<span class="fc" id="L35">                String.format(&quot;Student with ID %s already exists in the gradebook&quot;, key)</span>
+            );
+        }
+        
+<span class="fc" id="L39">        students.put(key, student);</span>
+<span class="fc" id="L40">        System.out.printf(&quot;Added student: %s (ID: %s)%n&quot;, </span>
+<span class="fc" id="L41">                         student.getName(), student.getStudentId());</span>
+<span class="fc" id="L42">    }</span>
+    
+    public Optional&lt;Student&gt; findStudent(String studentId) {
+<span class="pc bpc" id="L45" title="2 of 4 branches missed.">        if (studentId == null || studentId.trim().isEmpty()) {</span>
+<span class="nc" id="L46">            return Optional.empty();</span>
+        }
+<span class="fc" id="L48">        return Optional.ofNullable(students.get(studentId.trim()));</span>
+    }
+    
+    public boolean removeStudent(String studentId) {
+<span class="pc bpc" id="L52" title="2 of 4 branches missed.">        if (studentId == null || studentId.trim().isEmpty()) {</span>
+<span class="nc" id="L53">            return false;</span>
+        }
+        
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        if (students.containsKey(studentId.trim())) {</span>
+<span class="fc" id="L57">            students.remove(studentId.trim());</span>
+<span class="fc" id="L58">            System.out.printf(&quot;Removed student with ID: %s%n&quot;, studentId);</span>
+<span class="fc" id="L59">            return true;</span>
+        }
+<span class="fc" id="L61">        return false;</span>
+    }
+    
+    public Optional&lt;Double&gt; calculateAverage(String studentId) {
+<span class="fc" id="L65">        Student student = findStudent(studentId)</span>
+<span class="fc" id="L66">            .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Student not found: &quot; + studentId));</span>
+        
+<span class="fc" id="L68">        return student.getAverageScore();</span>
+    }
+    
+    public double calculateAverageOrDefault(String studentId, double defaultValue) {
+<span class="fc" id="L72">        return calculateAverage(studentId).orElse(defaultValue);</span>
+    }
+    
+    public Optional&lt;Double&gt; getHighestScore(String studentId) {
+<span class="nc" id="L76">        Student student = findStudent(studentId)</span>
+<span class="nc" id="L77">            .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Student not found: &quot; + studentId));</span>
+        
+<span class="nc" id="L79">        return student.getHighestScore();</span>
+    }
+    
+    public int getStudentCount() {
+<span class="fc" id="L83">        return students.size();</span>
+    }
+    
+    public boolean isStudentIdUnique(String studentId) {
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        return !students.containsKey(studentId);</span>
+    }
+    
+    public Map&lt;String, Student&gt; getStudents() {
+<span class="nc" id="L91">        return new HashMap&lt;&gt;(students);</span>
+    }
+    
+    public String getCourseName() {
+<span class="nc" id="L95">        return courseName;</span>
+    }
+    
+    public void setCourseName(String courseName) {
+<span class="nc" id="L99">        this.courseName = courseName;</span>
+<span class="nc" id="L100">    }</span>
+    
+    public String getSemester() {
+<span class="nc" id="L103">        return semester;</span>
+    }
+    
+    public void setSemester(String semester) {
+<span class="nc" id="L107">        this.semester = semester;</span>
+<span class="nc" id="L108">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -1,13 +1,14 @@
-package com.library.ep;
+package ep;
 
-import com.library.utils.GradebookUtils;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.*;
+import com.library.utils.GradebookUtils;
+
 
 @DisplayName("Letter Grade Equivalence Partitioning Tests")
 public class TestLetterGrade {

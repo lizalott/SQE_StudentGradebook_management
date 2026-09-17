@@ -1,12 +1,15 @@
-package com.library.ep;
+package ep;
 
-import com.library.models.Student;
-import com.library.utils.GradebookUtils;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import com.library.models.Student;
+import com.library.utils.GradebookUtils;
+
+
 
 @DisplayName("Score Count Equivalence Partitioning Tests")
 public class TestRoster {

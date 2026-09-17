@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GradebookUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SQE Library Management System</a> &gt; <a href="index.source.html" class="el_package">com.library.utils</a> &gt; <span class="el_source">GradebookUtils.java</span></div><h1>GradebookUtils.java</h1><pre class="source lang-java linenums">package com.library.utils;
+
+import com.library.models.Student;
+
+/**
+ * Utility class for Gradebook operations.
+ * Contains functions for letter grade conversion, name validation, etc.
+ */
+<span class="nc" id="L9">public class GradebookUtils {</span>
+    
+    // ============================================
+    // METHOD 1: letterGrade(score)
+    // ============================================
+    /**
+     * Converts a numeric score to a letter grade (A-F).
+     * 
+     * @param score The numeric score (0-100)
+     * @return The letter grade as a string
+     * @throws IllegalArgumentException if score is outside 0-100 range
+     */
+    public static String letterGrade(double score) {
+        // Invalid: score &lt; 0
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        if (score &lt; 0) {</span>
+<span class="fc" id="L24">            throw new IllegalArgumentException(&quot;Score cannot be negative: &quot; + score);</span>
+        }
+        
+        // Invalid: score &gt; 100
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if (score &gt; 100) {</span>
+<span class="fc" id="L29">            throw new IllegalArgumentException(&quot;Score cannot exceed 100: &quot; + score);</span>
+        }
+        
+        // Valid classes
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        if (score &gt;= 90) {</span>
+<span class="fc" id="L34">            return &quot;A&quot;;</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        } else if (score &gt;= 80) {</span>
+<span class="fc" id="L36">            return &quot;B&quot;;</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        } else if (score &gt;= 70) {</span>
+<span class="fc" id="L38">            return &quot;C&quot;;</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        } else if (score &gt;= 60) {</span>
+<span class="fc" id="L40">            return &quot;D&quot;;</span>
+        } else {
+<span class="fc" id="L42">            return &quot;F&quot;;</span>
+        }
+    }
+    
+    // ============================================
+    // METHOD 2: validateName(name)
+    // ============================================
+    /**
+     * Validates a student name according to business rules.
+     * Rules: non-empty, max 50 chars, only letters/spaces/hyphens.
+     * 
+     * @param name The name to validate
+     * @return true if valid
+     * @throws IllegalArgumentException if name is invalid
+     */
+    public static boolean validateName(String name) {
+        // Invalid: null or empty
+<span class="fc bfc" id="L59" title="All 4 branches covered.">        if (name == null || name.trim().isEmpty()) {</span>
+<span class="fc" id="L60">            throw new IllegalArgumentException(&quot;Name cannot be null or empty&quot;);</span>
+        }
+        
+        // Invalid: exceeds 50 characters
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        if (name.length() &gt; 50) {</span>
+<span class="fc" id="L65">            throw new IllegalArgumentException(&quot;Name exceeds maximum length of 50 characters&quot;);</span>
+        }
+        
+        // Invalid: contains digits or special characters
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        if (!name.matches(&quot;^[a-zA-Z\\s\\-]+$&quot;)) {</span>
+<span class="fc" id="L70">            throw new IllegalArgumentException(&quot;Name can only contain letters, spaces, and hyphens&quot;);</span>
+        }
+        
+<span class="fc" id="L73">        return true;</span>
+    }
+    
+    // ============================================
+    // METHOD 3: validateScoreCount(student)
+    // ============================================
+    /**
+     * Validates that a student has between 1 and 6 scores.
+     * 
+     * @param student The student to validate
+     * @return true if valid
+     * @throws IllegalArgumentException if score count is invalid
+     */
+    public static boolean validateScoreCount(Student student) {
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">        if (student == null) {</span>
+<span class="nc" id="L88">            throw new IllegalArgumentException(&quot;Student cannot be null&quot;);</span>
+        }
+        
+<span class="fc" id="L91">        int scoreCount = student.getScoreCount();</span>
+        
+        // Invalid: 0 scores
+<span class="fc bfc" id="L94" title="All 2 branches covered.">        if (scoreCount == 0) {</span>
+<span class="fc" id="L95">            throw new IllegalArgumentException(&quot;Student must have at least 1 score&quot;);</span>
+        }
+        
+        // Invalid: more than 6 scores
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        if (scoreCount &gt; 6) {</span>
+<span class="fc" id="L100">            throw new IllegalArgumentException(&quot;Student cannot have more than 6 scores&quot;);</span>
+        }
+        
+<span class="fc" id="L103">        return true;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

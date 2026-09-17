@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TestRunner.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SQE Library Management System</a> &gt; <a href="index.source.html" class="el_package">com.library</a> &gt; <span class="el_source">TestRunner.java</span></div><h1>TestRunner.java</h1><pre class="source lang-java linenums">package com.library;
+
+import com.library.models.Student;
+import com.library.services.Gradebook;
+import java.util.Optional;
+
+<span class="nc" id="L7">public class TestRunner {</span>
+    
+<span class="nc" id="L9">    private static int passed = 0;</span>
+<span class="nc" id="L10">    private static int failed = 0;</span>
+    
+    public static void main(String[] args) {
+<span class="nc" id="L13">        System.out.println(&quot;=&quot;.repeat(60));</span>
+<span class="nc" id="L14">        System.out.println(&quot;GRADEBOOK TEST EXECUTION - LAB 4 TASK 4&quot;);</span>
+<span class="nc" id="L15">        System.out.println(&quot;=&quot;.repeat(60));</span>
+<span class="nc" id="L16">        System.out.println();</span>
+        
+        // Run all test cases
+<span class="nc" id="L19">        testTC001();</span>
+<span class="nc" id="L20">        testTC002();</span>
+<span class="nc" id="L21">        testTC003();</span>
+<span class="nc" id="L22">        testTC004();</span>
+<span class="nc" id="L23">        testTC005();</span>
+<span class="nc" id="L24">        testTC006();</span>
+<span class="nc" id="L25">        testTC007();</span>
+<span class="nc" id="L26">        testTC008();</span>
+<span class="nc" id="L27">        testTC009();</span>
+<span class="nc" id="L28">        testTC010();</span>
+<span class="nc" id="L29">        testTC011();</span>
+<span class="nc" id="L30">        testTC012();</span>
+        
+        // Print summary
+<span class="nc" id="L33">        System.out.println();</span>
+<span class="nc" id="L34">        System.out.println(&quot;=&quot;.repeat(60));</span>
+<span class="nc" id="L35">        System.out.println(&quot;TEST SUMMARY&quot;);</span>
+<span class="nc" id="L36">        System.out.println(&quot;=&quot;.repeat(60));</span>
+<span class="nc" id="L37">        System.out.println(&quot;Total Tests: &quot; + (passed + failed));</span>
+<span class="nc" id="L38">        System.out.println(&quot;✅ Passed: &quot; + passed);</span>
+<span class="nc" id="L39">        System.out.println(&quot;❌ Failed: &quot; + failed);</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        if (passed + failed &gt; 0) {</span>
+<span class="nc" id="L41">            System.out.println(&quot;Pass Rate: &quot; + (passed * 100 / (passed + failed)) + &quot;%&quot;);</span>
+        }
+<span class="nc" id="L43">        System.out.println(&quot;=&quot;.repeat(60));</span>
+<span class="nc" id="L44">    }</span>
+    
+    // ============================================
+    // TC-001: Add Valid Score
+    // ============================================
+    private static void testTC001() {
+<span class="nc" id="L50">        System.out.println(&quot;TC-001: Add Valid Score&quot;);</span>
+        try {
+<span class="nc" id="L52">            Student s = new Student(&quot;John Doe&quot;, &quot;STU-001&quot;);</span>
+<span class="nc" id="L53">            s.addScore(85.5);</span>
+            
+<span class="nc bnc" id="L55" title="All 4 branches missed.">            if (s.getScoreCount() == 1 &amp;&amp; s.getAssessmentScores().contains(85.5)) {</span>
+<span class="nc" id="L56">                System.out.println(&quot;  ✅ PASS - Score 85.5 added successfully&quot;);</span>
+<span class="nc" id="L57">                passed++;</span>
+            } else {
+<span class="nc" id="L59">                System.out.println(&quot;  ❌ FAIL - Score not added correctly&quot;);</span>
+<span class="nc" id="L60">                failed++;</span>
+            }
+<span class="nc" id="L62">        } catch (Exception e) {</span>
+<span class="nc" id="L63">            System.out.println(&quot;  ❌ FAIL - Exception thrown: &quot; + e.getMessage());</span>
+<span class="nc" id="L64">            failed++;</span>
+<span class="nc" id="L65">        }</span>
+<span class="nc" id="L66">        System.out.println();</span>
+<span class="nc" id="L67">    }</span>
+    
+    // ============================================
+    // TC-002: Add Negative Score (Should Reject)
+    // ============================================
+    private static void testTC002() {
+<span class="nc" id="L73">        System.out.println(&quot;TC-002: Add Negative Score (Should Reject)&quot;);</span>
+        try {
+<span class="nc" id="L75">            Student s = new Student(&quot;Jane Doe&quot;, &quot;STU-002&quot;);</span>
+<span class="nc" id="L76">            s.addScore(-15.0);</span>
+            // BUG: This should throw exception but doesn't!
+<span class="nc" id="L78">            System.out.println(&quot;  ❌ FAIL - Negative score was accepted! Bug #1 confirmed.&quot;);</span>
+<span class="nc" id="L79">            failed++;</span>
+<span class="nc" id="L80">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L81">            System.out.println(&quot;  ✅ PASS - Exception thrown: &quot; + e.getMessage());</span>
+<span class="nc" id="L82">            passed++;</span>
+<span class="nc" id="L83">        } catch (Exception e) {</span>
+<span class="nc" id="L84">            System.out.println(&quot;  ⚠️ PARTIAL - Wrong exception type: &quot; + e.getClass().getSimpleName());</span>
+<span class="nc" id="L85">            failed++;</span>
+<span class="nc" id="L86">        }</span>
+<span class="nc" id="L87">        System.out.println();</span>
+<span class="nc" id="L88">    }</span>
+    
+    // ============================================
+    // TC-003: Add Score &gt; 100 (Should Reject)
+    // ============================================
+    private static void testTC003() {
+<span class="nc" id="L94">        System.out.println(&quot;TC-003: Add Score &gt; 100 (Should Reject)&quot;);</span>
+        try {
+<span class="nc" id="L96">            Student s = new Student(&quot;Bob Smith&quot;, &quot;STU-003&quot;);</span>
+<span class="nc" id="L97">            s.addScore(105.0);</span>
+            // BUG: This should throw exception but doesn't!
+<span class="nc" id="L99">            System.out.println(&quot;  ❌ FAIL - Score &gt; 100 was accepted! Bug #1 confirmed.&quot;);</span>
+<span class="nc" id="L100">            failed++;</span>
+<span class="nc" id="L101">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L102">            System.out.println(&quot;  ✅ PASS - Exception thrown: &quot; + e.getMessage());</span>
+<span class="nc" id="L103">            passed++;</span>
+<span class="nc" id="L104">        } catch (Exception e) {</span>
+<span class="nc" id="L105">            System.out.println(&quot;  ⚠️ PARTIAL - Wrong exception type: &quot; + e.getClass().getSimpleName());</span>
+<span class="nc" id="L106">            failed++;</span>
+<span class="nc" id="L107">        }</span>
+<span class="nc" id="L108">        System.out.println();</span>
+<span class="nc" id="L109">    }</span>
+    
+    // ============================================
+    // TC-004: Add Null Score (Should Reject)
+    // ============================================
+    private static void testTC004() {
+<span class="nc" id="L115">        System.out.println(&quot;TC-004: Add Null Score (Should Reject)&quot;);</span>
+        try {
+<span class="nc" id="L117">            Student s = new Student(&quot;Alice Brown&quot;, &quot;STU-004&quot;);</span>
+<span class="nc" id="L118">            s.addScore(null);</span>
+            // BUG: This should throw exception but may not!
+<span class="nc" id="L120">            System.out.println(&quot;  ❌ FAIL - Null score was accepted! Bug #1 confirmed.&quot;);</span>
+<span class="nc" id="L121">            failed++;</span>
+<span class="nc" id="L122">        } catch (NullPointerException e) {</span>
+<span class="nc" id="L123">            System.out.println(&quot;  ✅ PASS - Exception thrown: &quot; + e.getMessage());</span>
+<span class="nc" id="L124">            passed++;</span>
+<span class="nc" id="L125">        } catch (Exception e) {</span>
+<span class="nc" id="L126">            System.out.println(&quot;  ⚠️ PARTIAL - Wrong exception type: &quot; + e.getClass().getSimpleName());</span>
+<span class="nc" id="L127">            failed++;</span>
+<span class="nc" id="L128">        }</span>
+<span class="nc" id="L129">        System.out.println();</span>
+<span class="nc" id="L130">    }</span>
+    
+    // ============================================
+    // TC-005: Add Score at Minimum Boundary (0)
+    // ============================================
+    private static void testTC005() {
+<span class="nc" id="L136">        System.out.println(&quot;TC-005: Add Score at Minimum Boundary (0)&quot;);</span>
+        try {
+<span class="nc" id="L138">            Student s = new Student(&quot;Charlie Wilson&quot;, &quot;STU-005&quot;);</span>
+<span class="nc" id="L139">            s.addScore(0.0);</span>
+            
+<span class="nc bnc" id="L141" title="All 4 branches missed.">            if (s.getScoreCount() == 1 &amp;&amp; s.getAssessmentScores().contains(0.0)) {</span>
+<span class="nc" id="L142">                System.out.println(&quot;  ✅ PASS - Score 0.0 added successfully&quot;);</span>
+<span class="nc" id="L143">                passed++;</span>
+            } else {
+<span class="nc" id="L145">                System.out.println(&quot;  ❌ FAIL - Score 0.0 not added correctly&quot;);</span>
+<span class="nc" id="L146">                failed++;</span>
+            }
+<span class="nc" id="L148">        } catch (Exception e) {</span>
+<span class="nc" id="L149">            System.out.println(&quot;  ❌ FAIL - Exception thrown: &quot; + e.getMessage());</span>
+<span class="nc" id="L150">            failed++;</span>
+<span class="nc" id="L151">        }</span>
+<span class="nc" id="L152">        System.out.println();</span>
+<span class="nc" id="L153">    }</span>
+    
+    // ============================================
+    // TC-006: Add Score at Maximum Boundary (100)
+    // ============================================
+    private static void testTC006() {
+<span class="nc" id="L159">        System.out.println(&quot;TC-006: Add Score at Maximum Boundary (100)&quot;);</span>
+        try {
+<span class="nc" id="L161">            Student s = new Student(&quot;Diana Prince&quot;, &quot;STU-006&quot;);</span>
+<span class="nc" id="L162">            s.addScore(100.0);</span>
+            
+<span class="nc bnc" id="L164" title="All 4 branches missed.">            if (s.getScoreCount() == 1 &amp;&amp; s.getAssessmentScores().contains(100.0)) {</span>
+<span class="nc" id="L165">                System.out.println(&quot;  ✅ PASS - Score 100.0 added successfully&quot;);</span>
+<span class="nc" id="L166">                passed++;</span>
+            } else {
+<span class="nc" id="L168">                System.out.println(&quot;  ❌ FAIL - Score 100.0 not added correctly&quot;);</span>
+<span class="nc" id="L169">                failed++;</span>
+            }
+<span class="nc" id="L171">        } catch (Exception e) {</span>
+<span class="nc" id="L172">            System.out.println(&quot;  ❌ FAIL - Exception thrown: &quot; + e.getMessage());</span>
+<span class="nc" id="L173">            failed++;</span>
+<span class="nc" id="L174">        }</span>
+<span class="nc" id="L175">        System.out.println();</span>
+<span class="nc" id="L176">    }</span>
+    
+    // ============================================
+    // TC-007: Calculate Average with Scores
+    // ============================================
+    private static void testTC007() {
+<span class="nc" id="L182">        System.out.println(&quot;TC-007: Calculate Average with Scores&quot;);</span>
+        try {
+<span class="nc" id="L184">            Student s = new Student(&quot;Eva Green&quot;, &quot;STU-007&quot;);</span>
+<span class="nc" id="L185">            s.addScores(85.5, 90.0, 95.5);</span>
+            
+<span class="nc" id="L187">            Optional&lt;Double&gt; avg = s.getAverageScore();</span>
+            
+<span class="nc bnc" id="L189" title="All 2 branches missed.">            if (avg.isPresent()) {</span>
+<span class="nc" id="L190">                double expected = 90.3333333333333;</span>
+<span class="nc" id="L191">                double actual = avg.get();</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">                if (Math.abs(actual - expected) &lt; 0.0001) {</span>
+<span class="nc" id="L193">                    System.out.println(&quot;  ✅ PASS - Average: &quot; + actual + &quot; (expected: &quot; + expected + &quot;)&quot;);</span>
+<span class="nc" id="L194">                    passed++;</span>
+                } else {
+<span class="nc" id="L196">                    System.out.println(&quot;  ❌ FAIL - Average: &quot; + actual + &quot; (expected: &quot; + expected + &quot;)&quot;);</span>
+<span class="nc" id="L197">                    failed++;</span>
+                }
+<span class="nc" id="L199">            } else {</span>
+<span class="nc" id="L200">                System.out.println(&quot;  ❌ FAIL - Average returned empty&quot;);</span>
+<span class="nc" id="L201">                failed++;</span>
+            }
+<span class="nc" id="L203">        } catch (Exception e) {</span>
+<span class="nc" id="L204">            System.out.println(&quot;  ❌ FAIL - Exception thrown: &quot; + e.getMessage());</span>
+<span class="nc" id="L205">            failed++;</span>
+<span class="nc" id="L206">        }</span>
+<span class="nc" id="L207">        System.out.println();</span>
+<span class="nc" id="L208">    }</span>
+    
+  // ============================================
+// TC-008: Calculate Average with Empty Scores
+// ============================================
+private static void testTC008() {
+<span class="nc" id="L214">    System.out.println(&quot;TC-008: Calculate Average with Empty Scores&quot;);</span>
+    try {
+<span class="nc" id="L216">        Student s = new Student(&quot;Frank White&quot;, &quot;STU-008&quot;);</span>
+<span class="nc" id="L217">        Optional&lt;Double&gt; avg = s.getAverageScore();</span>
+        
+        // FIX: Actually check the result!
+<span class="nc bnc" id="L220" title="All 2 branches missed.">        if (avg.isEmpty()) {</span>
+<span class="nc" id="L221">            System.out.println(&quot;  ✅ PASS - Returned empty (no division by zero)&quot;);</span>
+<span class="nc" id="L222">            passed++;</span>
+        } else {
+<span class="nc" id="L224">            System.out.println(&quot;  ❌ FAIL - Should return empty, got: &quot; + avg.get());</span>
+<span class="nc" id="L225">            failed++;</span>
+        }
+<span class="nc" id="L227">    } catch (ArithmeticException e) {</span>
+<span class="nc" id="L228">        System.out.println(&quot;  ❌ FAIL - Division by zero error occurred!&quot;);</span>
+<span class="nc" id="L229">        failed++;</span>
+<span class="nc" id="L230">    } catch (Exception e) {</span>
+<span class="nc" id="L231">        System.out.println(&quot;  ❌ FAIL - Exception thrown: &quot; + e.getMessage());</span>
+<span class="nc" id="L232">        failed++;</span>
+<span class="nc" id="L233">    }</span>
+<span class="nc" id="L234">    System.out.println();</span>
+<span class="nc" id="L235">}</span>
+    // ============================================
+    // TC-009: Calculate Average with Single Score
+    // ============================================
+    private static void testTC009() {
+<span class="nc" id="L240">        System.out.println(&quot;TC-009: Calculate Average with Single Score&quot;);</span>
+        try {
+<span class="nc" id="L242">            Student s = new Student(&quot;Grace Lee&quot;, &quot;STU-009&quot;);</span>
+<span class="nc" id="L243">            s.addScore(92.0);</span>
+            
+<span class="nc" id="L245">            Optional&lt;Double&gt; avg = s.getAverageScore();</span>
+            
+<span class="nc bnc" id="L247" title="All 2 branches missed.">            if (avg.isPresent()) {</span>
+<span class="nc" id="L248">                double expected = 92.0;</span>
+<span class="nc" id="L249">                double actual = avg.get();</span>
+<span class="nc bnc" id="L250" title="All 2 branches missed.">                if (Math.abs(actual - expected) &lt; 0.0001) {</span>
+<span class="nc" id="L251">                    System.out.println(&quot;  ✅ PASS - Average: &quot; + actual + &quot; (expected: &quot; + expected + &quot;)&quot;);</span>
+<span class="nc" id="L252">                    passed++;</span>
+                } else {
+<span class="nc" id="L254">                    System.out.println(&quot;  ❌ FAIL - Average: &quot; + actual + &quot; (expected: &quot; + expected + &quot;)&quot;);</span>
+<span class="nc" id="L255">                    failed++;</span>
+                }
+<span class="nc" id="L257">            } else {</span>
+<span class="nc" id="L258">                System.out.println(&quot;  ❌ FAIL - Average returned empty&quot;);</span>
+<span class="nc" id="L259">                failed++;</span>
+            }
+<span class="nc" id="L261">        } catch (Exception e) {</span>
+<span class="nc" id="L262">            System.out.println(&quot;  ❌ FAIL - Exception thrown: &quot; + e.getMessage());</span>
+<span class="nc" id="L263">            failed++;</span>
+<span class="nc" id="L264">        }</span>
+<span class="nc" id="L265">        System.out.println();</span>
+<span class="nc" id="L266">    }</span>
+    
+    // ============================================
+    // TC-010: Reject Duplicate Student ID
+    // ============================================
+    private static void testTC010() {
+<span class="nc" id="L272">        System.out.println(&quot;TC-010: Reject Duplicate Student ID&quot;);</span>
+        try {
+<span class="nc" id="L274">            Gradebook gb = new Gradebook();</span>
+<span class="nc" id="L275">            Student s1 = new Student(&quot;Henry Ford&quot;, &quot;STU-010&quot;);</span>
+<span class="nc" id="L276">            gb.addStudent(s1);</span>
+            
+<span class="nc" id="L278">            Student s2 = new Student(&quot;Helen Ford&quot;, &quot;STU-010&quot;);</span>
+<span class="nc" id="L279">            gb.addStudent(s2);</span>
+            
+            // BUG: This should throw exception but doesn't!
+<span class="nc" id="L282">            System.out.println(&quot;  ❌ FAIL - Duplicate ID was accepted! Bug #4 confirmed.&quot;);</span>
+<span class="nc" id="L283">            failed++;</span>
+<span class="nc" id="L284">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L285">            System.out.println(&quot;  ✅ PASS - Exception thrown: &quot; + e.getMessage());</span>
+<span class="nc" id="L286">            passed++;</span>
+<span class="nc" id="L287">        } catch (Exception e) {</span>
+<span class="nc" id="L288">            System.out.println(&quot;  ⚠️ PARTIAL - Wrong exception type: &quot; + e.getClass().getSimpleName());</span>
+<span class="nc" id="L289">            failed++;</span>
+<span class="nc" id="L290">        }</span>
+<span class="nc" id="L291">        System.out.println();</span>
+<span class="nc" id="L292">    }</span>
+    
+    // ============================================
+    // TC-011: Find Student by ID
+    // ============================================
+    private static void testTC011() {
+<span class="nc" id="L298">        System.out.println(&quot;TC-011: Find Student by ID&quot;);</span>
+        try {
+<span class="nc" id="L300">            Gradebook gb = new Gradebook();</span>
+<span class="nc" id="L301">            Student s = new Student(&quot;Ivy Chen&quot;, &quot;STU-011&quot;);</span>
+<span class="nc" id="L302">            gb.addStudent(s);</span>
+            
+<span class="nc" id="L304">            Optional&lt;Student&gt; found = gb.findStudent(&quot;STU-011&quot;);</span>
+            
+<span class="nc bnc" id="L306" title="All 4 branches missed.">            if (found.isPresent() &amp;&amp; found.get().getName().equals(&quot;Ivy Chen&quot;)) {</span>
+<span class="nc" id="L307">                System.out.println(&quot;  ✅ PASS - Found student: &quot; + found.get().getName());</span>
+<span class="nc" id="L308">                passed++;</span>
+            } else {
+<span class="nc" id="L310">                System.out.println(&quot;  ❌ FAIL - Student not found&quot;);</span>
+<span class="nc" id="L311">                failed++;</span>
+            }
+<span class="nc" id="L313">        } catch (Exception e) {</span>
+<span class="nc" id="L314">            System.out.println(&quot;  ❌ FAIL - Exception thrown: &quot; + e.getMessage());</span>
+<span class="nc" id="L315">            failed++;</span>
+<span class="nc" id="L316">        }</span>
+<span class="nc" id="L317">        System.out.println();</span>
+<span class="nc" id="L318">    }</span>
+    
+    // ============================================
+    // TC-012: Calculate Highest Score
+    // ============================================
+    private static void testTC012() {
+<span class="nc" id="L324">        System.out.println(&quot;TC-012: Calculate Highest Score&quot;);</span>
+        try {
+<span class="nc" id="L326">            Student s = new Student(&quot;Jack Ryan&quot;, &quot;STU-012&quot;);</span>
+<span class="nc" id="L327">            s.addScores(85.5, 92.0, 78.5, 95.5);</span>
+            
+<span class="nc" id="L329">            Optional&lt;Double&gt; highest = s.getHighestScore();</span>
+            
+<span class="nc bnc" id="L331" title="All 2 branches missed.">            if (highest.isPresent()) {</span>
+<span class="nc" id="L332">                double expected = 95.5;</span>
+<span class="nc" id="L333">                double actual = highest.get();</span>
+<span class="nc bnc" id="L334" title="All 2 branches missed.">                if (Math.abs(actual - expected) &lt; 0.0001) {</span>
+<span class="nc" id="L335">                    System.out.println(&quot;  ✅ PASS - Highest: &quot; + actual + &quot; (expected: &quot; + expected + &quot;)&quot;);</span>
+<span class="nc" id="L336">                    passed++;</span>
+                } else {
+<span class="nc" id="L338">                    System.out.println(&quot;  ❌ FAIL - Highest: &quot; + actual + &quot; (expected: &quot; + expected + &quot;)&quot;);</span>
+<span class="nc" id="L339">                    failed++;</span>
+                }
+<span class="nc" id="L341">            } else {</span>
+<span class="nc" id="L342">                System.out.println(&quot;  ❌ FAIL - Highest returned empty&quot;);</span>
+<span class="nc" id="L343">                failed++;</span>
+            }
+<span class="nc" id="L345">        } catch (Exception e) {</span>
+<span class="nc" id="L346">            System.out.println(&quot;  ❌ FAIL - Exception thrown: &quot; + e.getMessage());</span>
+<span class="nc" id="L347">            failed++;</span>
+<span class="nc" id="L348">        }</span>
+<span class="nc" id="L349">        System.out.println();</span>
+<span class="nc" id="L350">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
