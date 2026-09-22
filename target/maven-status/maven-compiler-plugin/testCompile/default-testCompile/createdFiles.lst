@@ -1,8 +1,7 @@
+bva\TestRosterBVA.class
 com\library\services\GradebookTest.class
-com\library\bva\TestLetterGradeBVA.class
 com\library\models\StudentTest.class
-com\library\bva\TestRosterBVA.class
 ep\TestLetterGrade.class
+bva\TestValidateNameBVA.class
 ep\TestValidateName.class
-com\library\bva\TestValidateNameBVA.class
 ep\TestRoster.class

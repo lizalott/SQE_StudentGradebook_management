@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: bva.TestLetterGradeBVA
+Test set: bva.TestRosterBVA
 -------------------------------------------------------------------------------
-Tests run: 18, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.577 s -- in bva.TestLetterGradeBVA
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.253 s -- in bva.TestRosterBVA

@@ -1,4 +1,4 @@
-package com.library.bva;
+package bva;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -10,10 +10,6 @@ import com.library.utils.GradebookUtils;
 @DisplayName("Name Validation - Boundary Value Analysis Tests")
 public class TestValidateNameBVA {
     
-    // ============================================
-    // BOUNDARY 1: Domain Min (1 character)
-    // Values: 0, 1, 2 characters
-    // ============================================
     @Test
     @DisplayName("BVA: 0 characters (value-1) - should fail")
     void testBoundary_0Chars_ThrowsException() {
@@ -32,11 +28,7 @@ public class TestValidateNameBVA {
     void testBoundary_2Chars_Passes() {
         assertDoesNotThrow(() -> GradebookUtils.validateName("Al"));
     }
-    
-    // ============================================
-    // BOUNDARY 2: Domain Max (50 characters)
-    // Values: 49, 50, 51 characters
-    // ============================================
+
     @Test
     @DisplayName("BVA: 49 characters (value-1) - should pass")
     void testBoundary_49Chars_Passes() {

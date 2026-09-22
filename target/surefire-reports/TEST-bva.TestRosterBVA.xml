@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="bva.TestLetterGradeBVA" time="0.577" tests="18" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="bva.TestRosterBVA" time="0.253" tests="6" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="26"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,9 +15,9 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-26.0.2\bin"/>
-    <property name="sun.java.command" value="C:\Users\Liza\AppData\Local\Temp\surefire15160772278215214427\surefirebooter-20260917224404452_3.jar C:\Users\Liza\AppData\Local\Temp\surefire15160772278215214427 2026-09-17T22-44-04_158-jvmRun1 surefire-20260917224404452_1tmp surefire_0-20260917224404452_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\Liza\AppData\Local\Temp\surefire8426866717772341363\surefirebooter-20260917224617156_3.jar C:\Users\Liza\AppData\Local\Temp\surefire8426866717772341363 2026-09-17T22-46-16_876-jvmRun1 surefire-20260917224617156_1tmp surefire_0-20260917224617156_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="test" value="TestLetterGradeBVA"/>
+    <property name="test" value="TestRosterBVA"/>
     <property name="surefire.test.class.path" value="D:\study\SE5thSemester\SQEL\sqe-library-management\bin\test;D:\study\SE5thSemester\SQEL\sqe-library-management\bin\main;C:\Users\Liza\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.0\junit-jupiter-api-5.10.0.jar;C:\Users\Liza\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\Liza\.m2\repository\org\junit\platform\junit-platform-commons\1.10.0\junit-platform-commons-1.10.0.jar;C:\Users\Liza\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Liza\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.0\junit-jupiter-engine-5.10.0.jar;C:\Users\Liza\.m2\repository\org\junit\platform\junit-platform-engine\1.10.0\junit-platform-engine-1.10.0.jar;C:\Users\Liza\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.0\junit-jupiter-params-5.10.0.jar;C:\Users\Liza\.m2\repository\org\mockito\mockito-core\5.5.0\mockito-core-5.5.0.jar;C:\Users\Liza\.m2\repository\net\bytebuddy\byte-buddy\1.14.6\byte-buddy-1.14.6.jar;C:\Users\Liza\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.6\byte-buddy-agent-1.14.6.jar;C:\Users\Liza\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\Liza\.m2\repository\org\mockito\mockito-junit-jupiter\5.5.0\mockito-junit-jupiter-5.5.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\Liza"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\Liza\AppData\Local\Temp\surefire15160772278215214427\surefirebooter-20260917224404452_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Liza\AppData\Local\Temp\surefire8426866717772341363\surefirebooter-20260917224617156_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="26.0.2+10-55"/>
@@ -60,22 +60,10 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="70.0"/>
   </properties>
-  <testcase name="testBoundary_F_D_Cutoff(double, String)[1]" classname="bva.TestLetterGradeBVA" time="0.164"/>
-  <testcase name="testBoundary_F_D_Cutoff(double, String)[2]" classname="bva.TestLetterGradeBVA" time="0.003"/>
-  <testcase name="testBoundary_F_D_Cutoff(double, String)[3]" classname="bva.TestLetterGradeBVA" time="0.003"/>
-  <testcase name="testBoundary_C_B_Cutoff(double, String)[1]" classname="bva.TestLetterGradeBVA" time="0.004"/>
-  <testcase name="testBoundary_C_B_Cutoff(double, String)[2]" classname="bva.TestLetterGradeBVA" time="0.003"/>
-  <testcase name="testBoundary_C_B_Cutoff(double, String)[3]" classname="bva.TestLetterGradeBVA" time="0.002"/>
-  <testcase name="testBoundary_A_B_Cutoff(double, String)[1]" classname="bva.TestLetterGradeBVA" time="0.003"/>
-  <testcase name="testBoundary_A_B_Cutoff(double, String)[2]" classname="bva.TestLetterGradeBVA" time="0.003"/>
-  <testcase name="testBoundary_A_B_Cutoff(double, String)[3]" classname="bva.TestLetterGradeBVA" time="0.003"/>
-  <testcase name="testBoundary_DomainMax(double, String)[1]" classname="bva.TestLetterGradeBVA" time="0.002"/>
-  <testcase name="testBoundary_DomainMax(double, String)[2]" classname="bva.TestLetterGradeBVA" time="0.002"/>
-  <testcase name="testBoundary_DomainMax(double, String)[3]" classname="bva.TestLetterGradeBVA" time="0.013"/>
-  <testcase name="testBoundary_DomainMin(double, String)[1]" classname="bva.TestLetterGradeBVA" time="0.006"/>
-  <testcase name="testBoundary_DomainMin(double, String)[2]" classname="bva.TestLetterGradeBVA" time="0.002"/>
-  <testcase name="testBoundary_DomainMin(double, String)[3]" classname="bva.TestLetterGradeBVA" time="0.002"/>
-  <testcase name="testBoundary_D_C_Cutoff(double, String)[1]" classname="bva.TestLetterGradeBVA" time="0.002"/>
-  <testcase name="testBoundary_D_C_Cutoff(double, String)[2]" classname="bva.TestLetterGradeBVA" time="0.001"/>
-  <testcase name="testBoundary_D_C_Cutoff(double, String)[3]" classname="bva.TestLetterGradeBVA" time="0.002"/>
+  <testcase name="testBoundary_2Scores_Passes" classname="bva.TestRosterBVA" time="0.115"/>
+  <testcase name="testBoundary_0Scores_ThrowsException" classname="bva.TestRosterBVA" time="0.005"/>
+  <testcase name="testBoundary_7Scores_ThrowsException" classname="bva.TestRosterBVA" time="0.005"/>
+  <testcase name="testBoundary_1Score_Passes" classname="bva.TestRosterBVA" time="0.005"/>
+  <testcase name="testBoundary_6Scores_Passes" classname="bva.TestRosterBVA" time="0.003"/>
+  <testcase name="testBoundary_5Scores_Passes" classname="bva.TestRosterBVA" time="0.004"/>
 </testsuite>
