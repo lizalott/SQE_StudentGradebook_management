@@ -1,6 +1,8 @@
 bva\TestRosterBVA.class
-com\library\services\GradebookTest.class
-com\library\models\StudentTest.class
+fixtures\TestFixtures.class
+GradebookTest.class
+bva\TestLetterGradeBVA.class
+StudentTest.class
 ep\TestLetterGrade.class
 bva\TestValidateNameBVA.class
 ep\TestValidateName.class

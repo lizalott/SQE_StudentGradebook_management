@@ -1,5 +1,7 @@
 com\library\services\PersistenceService.class
+com\library\services\GradeBookIOError.class
+com\library\services\Gradebook.class
+com\library\services\Roster.class
 com\library\TestRunner.class
 com\library\models\Student.class
-com\library\services\Gradebook.class
 com\library\utils\GradebookUtils.class

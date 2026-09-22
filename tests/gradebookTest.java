@@ -1,13 +1,16 @@
-package com.library.services;
+import java.util.Optional;
 
-import com.library.models.Student;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
+import com.library.models.Student;
+import com.library.services.Gradebook;
 
 @DisplayName("Gradebook Tests")
 class GradebookTest {
@@ -52,8 +55,9 @@ class GradebookTest {
     @Test
     @DisplayName("Should throw exception when student not found")
     void shouldThrowExceptionWhenStudentNotFound() {
-        assertThrows(IllegalArgumentException.class,
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
             () -> gradebook.calculateAverage("STU-999"));
+        assertTrue(exception.getMessage().contains("not found"));
     }
     
     @Test

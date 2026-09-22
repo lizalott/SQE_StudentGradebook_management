@@ -9,20 +9,21 @@ import org.junit.jupiter.api.Test;
 import com.library.models.Student;
 import com.library.utils.GradebookUtils;
 
-@DisplayName("Score Count - Boundary Value Analysis Tests")
+@DisplayName("Score Count - Boundary Value Analysis (with Fixtures)")
 public class TestRosterBVA {
     
     private Student student;
     
     @BeforeEach
     void setUp() {
+        // Arrange: Fresh student for each test
         student = new Student("John Doe", "STU-001");
     }
     
     @Test
     @DisplayName("BVA: 0 scores (value-1) - should fail")
     void testBoundary_0Scores_ThrowsException() {
-        // 0 scores (below minimum)
+        // Act & Assert
         assertThrows(IllegalArgumentException.class, 
             () -> GradebookUtils.validateScoreCount(student));
     }
@@ -30,7 +31,10 @@ public class TestRosterBVA {
     @Test
     @DisplayName("BVA: 1 score (value) - should pass")
     void testBoundary_1Score_Passes() {
+        // Arrange
         student.addScore(85.0);
+        
+        // Act & Assert
         assertDoesNotThrow(() -> GradebookUtils.validateScoreCount(student));
     }
     
@@ -41,7 +45,7 @@ public class TestRosterBVA {
         student.addScore(90.0);
         assertDoesNotThrow(() -> GradebookUtils.validateScoreCount(student));
     }
-
+    
     @Test
     @DisplayName("BVA: 5 scores (value-1) - should pass")
     void testBoundary_5Scores_Passes() {

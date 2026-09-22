@@ -3,4 +3,6 @@ SQE Library Management System,com.library.models,Student,154,188,24,22,32,42,22,
 SQE Library Management System,com.library.utils,GradebookUtils,8,99,1,25,2,27,2,15,1,3
 SQE Library Management System,com.library,TestRunner,811,0,32,0,227,0,31,0,15,0
 SQE Library Management System,com.library.services,PersistenceService,89,0,8,0,25,0,7,0,3,0
+SQE Library Management System,com.library.services,GradeBookIOError,9,0,0,0,4,0,2,0,2,0
+SQE Library Management System,com.library.services,Roster,140,0,12,0,34,0,13,0,7,0
 SQE Library Management System,com.library.services,Gradebook,60,144,5,11,18,28,13,12,8,9

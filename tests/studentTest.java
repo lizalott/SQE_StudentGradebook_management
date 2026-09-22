@@ -1,13 +1,12 @@
-package com.library.models;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import com.library.models.Student;
 
 @DisplayName("Student Class Tests")
 class StudentTest {
@@ -16,7 +15,7 @@ class StudentTest {
     
     @BeforeEach
     void setUp() {
-        student = new Student("John Doe", "STU-001");
+        student = new Student("Liza Lott", "STU-001");
     }
     
     @Test
@@ -45,10 +44,11 @@ class StudentTest {
     @DisplayName("Should reject null scores")
     void shouldRejectNullScores() {
         // FIX: Test that null scores are rejected
-        assertThrows(
+        NullPointerException exception = assertThrows(
             NullPointerException.class,
             () -> student.addScore(null)
         );
+        assertEquals("Score cannot be null", exception.getMessage());
     }
     
     @Test
