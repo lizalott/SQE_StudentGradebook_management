@@ -37,7 +37,7 @@ public class TestClassAverage {
     void testClassAverage_SingleStudent_ReturnsStudentAverage() {
         // Arrange
         Student student = TestFixtures.createStudentWithScores(
-            "STU-001", "Ali Khan", 80.0, 90.0, 100.0
+            "STU-001", "Liza Lott", 80.0, 90.0, 100.0
         );
         roster.addStudent(student);
         

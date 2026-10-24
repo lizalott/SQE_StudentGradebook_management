@@ -20,8 +20,7 @@ public class TestAddScoreParametrized {
     void setUp() {
         student = new Student("Test Student", "STU-001");
     }
-    
-  
+      
     @ParameterizedTest(name = "[{index}] Score {0} should be accepted")
     @DisplayName("Valid scores are accepted")
     @ValueSource(doubles = {0.0, 0.1, 25.0, 50.0, 75.0, 99.9, 100.0})
@@ -33,8 +32,7 @@ public class TestAddScoreParametrized {
         assertEquals(1, student.getScoreCount());
         assertTrue(student.getAssessmentScores().contains(score));
     }
-    
-   
+      
     @ParameterizedTest(name = "[{index}] Negative score {0} should throw")
     @DisplayName("Negative scores are rejected")
     @ValueSource(doubles = {-0.1, -1.0, -50.0, -100.0, -999.0})

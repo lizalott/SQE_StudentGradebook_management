@@ -27,14 +27,14 @@ public class PersistenceService {
         try {
             // Save to file with proper serialization
 <span class="nc" id="L29">            try (ObjectOutputStream oos = new ObjectOutputStream(</span>
-                    new FileOutputStream(DATA_FILE))) {
+<span class="nc" id="L30">                    new FileOutputStream(DATA_FILE))) {</span>
 <span class="nc" id="L31">                oos.writeObject(student);</span>
 <span class="nc" id="L32">                System.out.println(&quot;Student saved successfully: &quot; + student.getName());</span>
             }
 <span class="nc" id="L34">        } catch (IOException e) {</span>
 <span class="nc" id="L35">            System.err.println(&quot;Error saving student: &quot; + e.getMessage());</span>
 <span class="nc" id="L36">            e.printStackTrace(); // Added for debugging</span>
-<span class="nc" id="L37">        }</span>
+        }
 <span class="nc" id="L38">    }</span>
     
     /**
@@ -48,7 +48,7 @@ public class PersistenceService {
         try {
             // Load from file
 <span class="nc" id="L50">            try (ObjectInputStream ois = new ObjectInputStream(</span>
-                    new FileInputStream(DATA_FILE))) {
+<span class="nc" id="L51">                    new FileInputStream(DATA_FILE))) {</span>
 <span class="nc" id="L52">                Student student = (Student) ois.readObject();</span>
                 
                 // Verify it's the right student
@@ -56,10 +56,10 @@ public class PersistenceService {
 <span class="nc" id="L56">                    System.out.println(&quot;Student loaded: &quot; + student.getName());</span>
 <span class="nc" id="L57">                    return student;</span>
                 }
-<span class="nc" id="L59">            }</span>
+            }
 <span class="nc" id="L60">        } catch (IOException | ClassNotFoundException e) {</span>
 <span class="nc" id="L61">            System.err.println(&quot;Error loading student: &quot; + e.getMessage());</span>
-<span class="nc" id="L62">        }</span>
+        }
         
 <span class="nc" id="L64">        return null;</span>
     }

@@ -30,9 +30,7 @@ public class TestSaveToFile {
         roster = new Roster();
     }
     
-    // ============================================
-    // Test 1: Successful file save (mocked)
-    // ============================================
+  
     @Test
     @DisplayName("saveToFile writes expected content")
     void testSaveToFile_WritesExpectedContent() throws Exception {
@@ -52,9 +50,7 @@ public class TestSaveToFile {
         assertTrue(expectedLine.matches("^STU-\\d{3},[A-Za-z ]+,\\d+$"));
     }
     
-    // ============================================
-    // Test 2: IO failure throws custom exception
-    // ============================================
+ 
     @Test
     @DisplayName("saveToFile throws GradeBookIOError on IO failure")
     void testSaveToFile_IOFailure_ThrowsGradeBookIOError() {
@@ -75,9 +71,6 @@ public class TestSaveToFile {
         assertTrue(exception.getCause() instanceof IOException);
     }
     
-    // ============================================
-    // Test 3: Verify no raw IOException leaks
-    // ============================================
     @Test
     @DisplayName("saveToFile does not leak raw IOException")
     void testSaveToFile_DoesNotLeakRawIOException() {

@@ -3,7 +3,10 @@ D:\study\SE5thSemester\SQEL\sqe-library-management\tests\bva\TestValidateNameBVA
 D:\study\SE5thSemester\SQEL\sqe-library-management\tests\ep\TestValidateName.java
 D:\study\SE5thSemester\SQEL\sqe-library-management\tests\bva\TestLetterGradeBVA.java
 D:\study\SE5thSemester\SQEL\sqe-library-management\tests\fixtures\TestFixtures.java
+D:\study\SE5thSemester\SQEL\sqe-library-management\tests\roster\TestSaveToFile.java
 D:\study\SE5thSemester\SQEL\sqe-library-management\tests\studentTest.java
 D:\study\SE5thSemester\SQEL\sqe-library-management\tests\ep\TestLetterGrade.java
 D:\study\SE5thSemester\SQEL\sqe-library-management\tests\gradebookTest.java
+D:\study\SE5thSemester\SQEL\sqe-library-management\tests\students\TestAddScoreParametrized.java
 D:\study\SE5thSemester\SQEL\sqe-library-management\tests\ep\TestRoster.java
+D:\study\SE5thSemester\SQEL\sqe-library-management\tests\roster\TestClassAverage.java
