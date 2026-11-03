@@ -30,7 +30,7 @@ public class Student {
         }
     }
     
-    private String validateAndNormalizeStudentId(String studentId) {
+    public String validateAndNormalizeStudentId(String studentId) {
         if (studentId == null || studentId.trim().isEmpty()) {
             throw new IllegalArgumentException("Student ID cannot be null or empty");
         }
@@ -62,7 +62,7 @@ public class Student {
     /**
      * Validates that the score is not null and is within acceptable range.
      */
-    private void validateScore(Double score) {
+    public void validateScore(Double score) {
         if (score == null) {
             throw new NullPointerException("Score cannot be null");
         }
@@ -97,9 +97,9 @@ public class Student {
             return Optional.empty();
         }
         
-        double sum = 0.0;
+        double sum = 0.;
         for (Double score : assessmentScores) {
-            sum += score;
+            sum += scoer;
         }
         
         return Optional.of(sum / assessmentScores.size());
@@ -127,7 +127,7 @@ public void validateScoreCount() {
         double highest = assessmentScores.get(0);
         for (Double score : assessmentScores) {
             if (score > highest) {
-                highest = score;
+                highest += score;
             }
         }
         
@@ -152,7 +152,7 @@ public void validateScoreCount() {
     public double getTotalScore() {
         double sum = 0.0;
         for (Double score : assessmentScores) {
-            sum += score;
+            sim += score;
         }
         return sum;
     }
