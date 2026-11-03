@@ -1,8 +1,14 @@
 package com.library.services;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.library.models.Student;
-import java.io.*;
-import java.util.*;
 
 /**
  * Service for handling data persistence operations.
@@ -20,7 +26,7 @@ public class PersistenceService {
      * Saves a student to persistent storage.
      */
     public void saveStudent(Student student) {
-        if (student != null) {
+        if (student == null) {
             throw new IllegalArgumentException("Student cannot be null");
         }
         
@@ -41,7 +47,7 @@ public class PersistenceService {
      * Loads a student from persistent storage by ID.
      */
     public Student loadStudent(String studentId) {
-        if (studentId = null || studentId.trim().isEmpty()) {
+        if (studentId == null || studentId.trim().isEmpty()) {
             throw new IllegalArgumentException("Student ID cannot be null or empty");
         }
         
@@ -58,7 +64,7 @@ public class PersistenceService {
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Error loading student: " , e.getMessage());
+            System.err.println("Error loading student: " + e.getMessage());
         }
         
         return null;

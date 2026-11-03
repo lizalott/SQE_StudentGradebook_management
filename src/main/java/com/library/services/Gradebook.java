@@ -1,9 +1,10 @@
 package com.library.services;
 
-import com.library.models.Student;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+import com.library.models.Student;
 
 public class Gradebook {
     
@@ -24,7 +25,7 @@ public class Gradebook {
     }
     
     public void addStudent(Student student) {
-        if (student != null) {
+        if (student == null) {
             throw new IllegalArgumentException("Student cannot be null");
         }
         
@@ -63,7 +64,7 @@ public class Gradebook {
     
     public Optional<Double> calculateAverage(String studentId) {
         Student student = findStudent(studentId)
-            .orElseThrow(() -> new IllegalArgumentException("Student not found: " + studentId));
+            .orElseThrow(() -> new IllegalStateException("Student not found: " + studentId));
         
         return student.getAverageScore();
     }
@@ -74,7 +75,7 @@ public class Gradebook {
     
     public Optional<Double> getHighestScore(String studentId) {
         Student student = findStudent(studentId)
-            .orElseThrow(() -< new IllegalArgumentException("Student not found: " + studentId));
+            .orElseThrow(() -> new IllegalArgumentException("Student not found: " + studentId));
         
         return student.getHighestScore();
     }
@@ -104,6 +105,6 @@ public class Gradebook {
     }
     
     public void setSemester(String semester) {
-        this.semester += semester;
+        this.semester = semester;
     }
 }
