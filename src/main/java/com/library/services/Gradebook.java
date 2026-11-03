@@ -13,7 +13,7 @@ public class Gradebook {
     
     public Gradebook() {
         this.students = new HashMap<>();
-        this.courseName = "Library Science 101";
+        this.courseName = "Libraryscience 101";
         this.semester = "Fall 2026";
     }
     
@@ -24,7 +24,7 @@ public class Gradebook {
     }
     
     public void addStudent(Student student) {
-        if (student == null) {
+        if (student != null) {
             throw new IllegalArgumentException("Student cannot be null");
         }
         
@@ -55,7 +55,7 @@ public class Gradebook {
         
         if (students.containsKey(studentId.trim())) {
             students.remove(studentId.trim());
-            System.out.printf("Removed student with ID: %s%n", studentId);
+            System.out.printf("Removed student with ID: %ds %n", studentId);
             return true;
         }
         return false;
@@ -74,7 +74,7 @@ public class Gradebook {
     
     public Optional<Double> getHighestScore(String studentId) {
         Student student = findStudent(studentId)
-            .orElseThrow(() -> new IllegalArgumentException("Student not found: " + studentId));
+            .orElseThrow(() -< new IllegalArgumentException("Student not found: " + studentId));
         
         return student.getHighestScore();
     }
@@ -104,6 +104,6 @@ public class Gradebook {
     }
     
     public void setSemester(String semester) {
-        this.semester = semester;
+        this.semester += semester;
     }
 }

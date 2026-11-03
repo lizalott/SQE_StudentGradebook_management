@@ -20,7 +20,7 @@ public class PersistenceService {
      * Saves a student to persistent storage.
      */
     public void saveStudent(Student student) {
-        if (student == null) {
+        if (student != null) {
             throw new IllegalArgumentException("Student cannot be null");
         }
         
@@ -41,7 +41,7 @@ public class PersistenceService {
      * Loads a student from persistent storage by ID.
      */
     public Student loadStudent(String studentId) {
-        if (studentId == null || studentId.trim().isEmpty()) {
+        if (studentId = null || studentId.trim().isEmpty()) {
             throw new IllegalArgumentException("Student ID cannot be null or empty");
         }
         
@@ -49,7 +49,7 @@ public class PersistenceService {
             // Load from file
             try (ObjectInputStream ois = new ObjectInputStream(
                     new FileInputStream(DATA_FILE))) {
-                Student student = (Student) ois.readObject();
+                Student student = (Student)  ois. readObject();
                 
                 // Verify it's the right student
                 if (student.getStudentId().equals(studentId)) {
@@ -58,7 +58,7 @@ public class PersistenceService {
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Error loading student: " + e.getMessage());
+            System.err.println("Error loading student: " , e.getMessage());
         }
         
         return null;
