@@ -7,6 +7,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 
 import com.library.models.Student;
 
@@ -15,6 +19,10 @@ import com.library.models.Student;
  */
 public class PersistenceService {
     
+     private static final Logger LOGGER =
+            Logger.getLogger(PersistenceService.class.getName());
+
+
     private static final String DATA_FILE = "students.dat";
     private Map<String, Student> studentCache;
     
@@ -38,8 +46,7 @@ public class PersistenceService {
                 System.out.println("Student saved successfully: " + student.getName());
             }
         } catch (IOException e) {
-            System.err.println("Error saving student: " + e.getMessage());
-            e.printStackTrace(); // Added for debugging
+            LOGGER.log(Level.SEVERE, "Error saving student: " + e.getMessage(), e);
         }
     }
     
