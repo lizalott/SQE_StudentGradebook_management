@@ -43,7 +43,7 @@ public class PersistenceService {
             try (ObjectOutputStream oos = new ObjectOutputStream(
                     new FileOutputStream(DATA_FILE))) {
                 oos.writeObject(student);
-                System.out.println("Student saved successfully: " + student.getName());
+                LOGGER.log(Level.INFO, "Student saved successfully: " + student.getName());
             }
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error saving student: " + e.getMessage(), e);
@@ -66,7 +66,7 @@ public class PersistenceService {
                 
                 // Verify it's the right student
                 if (student.getStudentId().equals(studentId)) {
-                    System.out.println("Student loaded: " + student.getName());
+                    LOGGER.log(Level.INFO, "Student loaded: " + student.getName());
                     return student;
                 }
             }

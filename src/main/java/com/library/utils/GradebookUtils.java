@@ -8,9 +8,16 @@ import com.library.models.Student;
  */
 public class GradebookUtils {
     
-    // ============================================
-    // METHOD 1: letterGrade(score)
-    // ============================================
+    private static final double GRADE_A_MIN = 90.0;
+    private static final double GRADE_B_MIN = 80.0;
+    private static final double GRADE_C_MIN = 70.0;
+    private static final double GRADE_D_MIN = 60.0;
+    private static final double MAX_SCORE = 100.0;
+    private static final double MIN_SCORE = 0.0;
+    // Add at top of class
+private static final String ERROR_SCORE_RANGE = "Score must be between %.1f and %.1f. Received: %.2f";
+
+  
     /**
      * Converts a numeric score to a letter grade (A-F).
      * 
@@ -19,30 +26,21 @@ public class GradebookUtils {
      * @throws IllegalArgumentException if score is outside 0-100 range
      */
     public static String letterGrade(double score) {
-        // Invalid: score < 0
-        if (score < 0) {
-            throw new IllegalArgumentException("Score cannot be negative: " + score);
+       
+        if (score < MIN_SCORE || score > MAX_SCORE) {
+            throw new IllegalArgumentException(
+                String.format(ERROR_SCORE_RANGE, MIN_SCORE, MAX_SCORE, score)
+            );
         }
         
-        // Invalid: score > 100
-        if (score > 100) {
-            throw new IllegalArgumentException("Score cannot exceed 100: " + score);
-        }
+     
+            if (score >= GRADE_A_MIN) return "A";
+            else if (score >= GRADE_B_MIN) return "B";
+            else if (score >= GRADE_C_MIN) return "C";
+            else if (score >= GRADE_D_MIN) return "D";
+            else return "F";
+            }
         
-        // Valid classes
-        if (score >= 90) {
-            return "A";
-        } else if (score >= 80) {
-            return "B";
-        } else if (score >= 70) {
-            return "C";
-        } else if (score >= 60) {
-            return "D";
-        } else {
-            return "F";
-        }
-    }
-    
     // ============================================
     // METHOD 2: validateName(name)
     // ============================================
