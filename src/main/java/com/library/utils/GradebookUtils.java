@@ -7,7 +7,11 @@ import com.library.models.Student;
  * Contains functions for letter grade conversion, name validation, etc.
  */
 public class GradebookUtils {
-    
+
+    private GradebookUtils() {
+        throw new UnsupportedOperationException(
+            "Utility class cannot be instantiated");
+    }
     private static final double GRADE_A_MIN = 90.0;
     private static final double GRADE_B_MIN = 80.0;
     private static final double GRADE_C_MIN = 70.0;
@@ -26,6 +30,9 @@ private static final String ERROR_SCORE_RANGE = "Score must be between %.1f and 
      * @throws IllegalArgumentException if score is outside 0-100 range
      */
     public static String letterGrade(double score) {
+        
+    
+
        
         if (score < MIN_SCORE || score > MAX_SCORE) {
             throw new IllegalArgumentException(

@@ -63,6 +63,8 @@ public class Student {
      * Validates that the score is not null and is within acceptable range.
      */
     public void validateScore(Double score) {
+      
+
         if (score == null) {
             throw new NullPointerException("Score cannot be null");
         }
@@ -80,6 +82,9 @@ public class Student {
     }
     
     public void addScores(Double... scores) {
+        if (score != null && score >= 0) {
+                assessmentScores.add(score);
+            }
         for (Double score : scores) {
             addScore(score);
         }
@@ -99,7 +104,7 @@ public class Student {
         
         double sum = 0.;
         for (Double score : assessmentScores) {
-            sum += scoer;
+            sum += score;
         }
         
         return Optional.of(sum / assessmentScores.size());
