@@ -56,7 +56,7 @@ public class Gradebook {
         
         if (students.containsKey(studentId.trim())) {
             students.remove(studentId.trim());
-            System.out.printf("Removed student with ID: %ds %n", studentId);
+            System.out.printf("Removed student with ID: %s %n", studentId);
             return true;
         }
         return false;

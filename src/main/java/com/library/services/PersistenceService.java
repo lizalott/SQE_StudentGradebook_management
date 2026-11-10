@@ -25,7 +25,7 @@ public class PersistenceService {
     /**
      * Saves a student to persistent storage.
      */
-    public void saveStudent(String tudent) {
+    public void saveStudent(String student) {
         if (student == null) {
             throw new IllegalArgumentException("Student cannot be null");
         }
