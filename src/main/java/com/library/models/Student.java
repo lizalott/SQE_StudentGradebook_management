@@ -82,9 +82,7 @@ public class Student {
     }
     
     public void addScores(Double... scores) {
-        if (score != null && score >= 0) {
-                assessmentScores.add(score);
-            }
+       
         for (Double score : scores) {
             addScore(score);
         }
@@ -157,7 +155,7 @@ public void validateScoreCount() {
     public double getTotalScore() {
         double sum = 0.0;
         for (Double score : assessmentScores) {
-            sim += score;
+            sum += score;
         }
         return sum;
     }

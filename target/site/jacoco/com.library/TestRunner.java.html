@@ -55,14 +55,14 @@ import java.util.Optional;
 <span class="nc bnc" id="L55" title="All 4 branches missed.">            if (s.getScoreCount() == 1 &amp;&amp; s.getAssessmentScores().contains(85.5)) {</span>
 <span class="nc" id="L56">                System.out.println(&quot;  ✅ PASS - Score 85.5 added successfully&quot;);</span>
 <span class="nc" id="L57">                passed++;</span>
-<span class="nc" id="L58">            } else {</span>
+            } else {
 <span class="nc" id="L59">                System.out.println(&quot;  ❌ FAIL - Score not added correctly&quot;);</span>
 <span class="nc" id="L60">                failed++;</span>
             }
 <span class="nc" id="L62">        } catch (Exception e) {</span>
 <span class="nc" id="L63">            System.out.println(&quot;  ❌ FAIL - Exception thrown: &quot; + e.getMessage());</span>
 <span class="nc" id="L64">            failed++;</span>
-        }
+<span class="nc" id="L65">        }</span>
 <span class="nc" id="L66">        System.out.println();</span>
 <span class="nc" id="L67">    }</span>
     
@@ -83,7 +83,7 @@ import java.util.Optional;
 <span class="nc" id="L83">        } catch (Exception e) {</span>
 <span class="nc" id="L84">            System.out.println(&quot;  ⚠️ PARTIAL - Wrong exception type: &quot; + e.getClass().getSimpleName());</span>
 <span class="nc" id="L85">            failed++;</span>
-        }
+<span class="nc" id="L86">        }</span>
 <span class="nc" id="L87">        System.out.println();</span>
 <span class="nc" id="L88">    }</span>
     
@@ -104,7 +104,7 @@ import java.util.Optional;
 <span class="nc" id="L104">        } catch (Exception e) {</span>
 <span class="nc" id="L105">            System.out.println(&quot;  ⚠️ PARTIAL - Wrong exception type: &quot; + e.getClass().getSimpleName());</span>
 <span class="nc" id="L106">            failed++;</span>
-        }
+<span class="nc" id="L107">        }</span>
 <span class="nc" id="L108">        System.out.println();</span>
 <span class="nc" id="L109">    }</span>
     
@@ -125,7 +125,7 @@ import java.util.Optional;
 <span class="nc" id="L125">        } catch (Exception e) {</span>
 <span class="nc" id="L126">            System.out.println(&quot;  ⚠️ PARTIAL - Wrong exception type: &quot; + e.getClass().getSimpleName());</span>
 <span class="nc" id="L127">            failed++;</span>
-        }
+<span class="nc" id="L128">        }</span>
 <span class="nc" id="L129">        System.out.println();</span>
 <span class="nc" id="L130">    }</span>
     
@@ -141,14 +141,14 @@ import java.util.Optional;
 <span class="nc bnc" id="L141" title="All 4 branches missed.">            if (s.getScoreCount() == 1 &amp;&amp; s.getAssessmentScores().contains(0.0)) {</span>
 <span class="nc" id="L142">                System.out.println(&quot;  ✅ PASS - Score 0.0 added successfully&quot;);</span>
 <span class="nc" id="L143">                passed++;</span>
-<span class="nc" id="L144">            } else {</span>
+            } else {
 <span class="nc" id="L145">                System.out.println(&quot;  ❌ FAIL - Score 0.0 not added correctly&quot;);</span>
 <span class="nc" id="L146">                failed++;</span>
             }
 <span class="nc" id="L148">        } catch (Exception e) {</span>
 <span class="nc" id="L149">            System.out.println(&quot;  ❌ FAIL - Exception thrown: &quot; + e.getMessage());</span>
 <span class="nc" id="L150">            failed++;</span>
-        }
+<span class="nc" id="L151">        }</span>
 <span class="nc" id="L152">        System.out.println();</span>
 <span class="nc" id="L153">    }</span>
     
@@ -164,14 +164,14 @@ import java.util.Optional;
 <span class="nc bnc" id="L164" title="All 4 branches missed.">            if (s.getScoreCount() == 1 &amp;&amp; s.getAssessmentScores().contains(100.0)) {</span>
 <span class="nc" id="L165">                System.out.println(&quot;  ✅ PASS - Score 100.0 added successfully&quot;);</span>
 <span class="nc" id="L166">                passed++;</span>
-<span class="nc" id="L167">            } else {</span>
+            } else {
 <span class="nc" id="L168">                System.out.println(&quot;  ❌ FAIL - Score 100.0 not added correctly&quot;);</span>
 <span class="nc" id="L169">                failed++;</span>
             }
 <span class="nc" id="L171">        } catch (Exception e) {</span>
 <span class="nc" id="L172">            System.out.println(&quot;  ❌ FAIL - Exception thrown: &quot; + e.getMessage());</span>
 <span class="nc" id="L173">            failed++;</span>
-        }
+<span class="nc" id="L174">        }</span>
 <span class="nc" id="L175">        System.out.println();</span>
 <span class="nc" id="L176">    }</span>
     
@@ -192,7 +192,7 @@ import java.util.Optional;
 <span class="nc bnc" id="L192" title="All 2 branches missed.">                if (Math.abs(actual - expected) &lt; 0.0001) {</span>
 <span class="nc" id="L193">                    System.out.println(&quot;  ✅ PASS - Average: &quot; + actual + &quot; (expected: &quot; + expected + &quot;)&quot;);</span>
 <span class="nc" id="L194">                    passed++;</span>
-<span class="nc" id="L195">                } else {</span>
+                } else {
 <span class="nc" id="L196">                    System.out.println(&quot;  ❌ FAIL - Average: &quot; + actual + &quot; (expected: &quot; + expected + &quot;)&quot;);</span>
 <span class="nc" id="L197">                    failed++;</span>
                 }
@@ -203,7 +203,7 @@ import java.util.Optional;
 <span class="nc" id="L203">        } catch (Exception e) {</span>
 <span class="nc" id="L204">            System.out.println(&quot;  ❌ FAIL - Exception thrown: &quot; + e.getMessage());</span>
 <span class="nc" id="L205">            failed++;</span>
-        }
+<span class="nc" id="L206">        }</span>
 <span class="nc" id="L207">        System.out.println();</span>
 <span class="nc" id="L208">    }</span>
     
@@ -220,7 +220,7 @@ private static void testTC008() {
 <span class="nc bnc" id="L220" title="All 2 branches missed.">        if (avg.isEmpty()) {</span>
 <span class="nc" id="L221">            System.out.println(&quot;  ✅ PASS - Returned empty (no division by zero)&quot;);</span>
 <span class="nc" id="L222">            passed++;</span>
-<span class="nc" id="L223">        } else {</span>
+        } else {
 <span class="nc" id="L224">            System.out.println(&quot;  ❌ FAIL - Should return empty, got: &quot; + avg.get());</span>
 <span class="nc" id="L225">            failed++;</span>
         }
@@ -230,7 +230,7 @@ private static void testTC008() {
 <span class="nc" id="L230">    } catch (Exception e) {</span>
 <span class="nc" id="L231">        System.out.println(&quot;  ❌ FAIL - Exception thrown: &quot; + e.getMessage());</span>
 <span class="nc" id="L232">        failed++;</span>
-    }
+<span class="nc" id="L233">    }</span>
 <span class="nc" id="L234">    System.out.println();</span>
 <span class="nc" id="L235">}</span>
     // ============================================
@@ -250,7 +250,7 @@ private static void testTC008() {
 <span class="nc bnc" id="L250" title="All 2 branches missed.">                if (Math.abs(actual - expected) &lt; 0.0001) {</span>
 <span class="nc" id="L251">                    System.out.println(&quot;  ✅ PASS - Average: &quot; + actual + &quot; (expected: &quot; + expected + &quot;)&quot;);</span>
 <span class="nc" id="L252">                    passed++;</span>
-<span class="nc" id="L253">                } else {</span>
+                } else {
 <span class="nc" id="L254">                    System.out.println(&quot;  ❌ FAIL - Average: &quot; + actual + &quot; (expected: &quot; + expected + &quot;)&quot;);</span>
 <span class="nc" id="L255">                    failed++;</span>
                 }
@@ -261,7 +261,7 @@ private static void testTC008() {
 <span class="nc" id="L261">        } catch (Exception e) {</span>
 <span class="nc" id="L262">            System.out.println(&quot;  ❌ FAIL - Exception thrown: &quot; + e.getMessage());</span>
 <span class="nc" id="L263">            failed++;</span>
-        }
+<span class="nc" id="L264">        }</span>
 <span class="nc" id="L265">        System.out.println();</span>
 <span class="nc" id="L266">    }</span>
     
@@ -287,7 +287,7 @@ private static void testTC008() {
 <span class="nc" id="L287">        } catch (Exception e) {</span>
 <span class="nc" id="L288">            System.out.println(&quot;  ⚠️ PARTIAL - Wrong exception type: &quot; + e.getClass().getSimpleName());</span>
 <span class="nc" id="L289">            failed++;</span>
-        }
+<span class="nc" id="L290">        }</span>
 <span class="nc" id="L291">        System.out.println();</span>
 <span class="nc" id="L292">    }</span>
     
@@ -306,14 +306,14 @@ private static void testTC008() {
 <span class="nc bnc" id="L306" title="All 4 branches missed.">            if (found.isPresent() &amp;&amp; found.get().getName().equals(&quot;Ivy Chen&quot;)) {</span>
 <span class="nc" id="L307">                System.out.println(&quot;  ✅ PASS - Found student: &quot; + found.get().getName());</span>
 <span class="nc" id="L308">                passed++;</span>
-<span class="nc" id="L309">            } else {</span>
+            } else {
 <span class="nc" id="L310">                System.out.println(&quot;  ❌ FAIL - Student not found&quot;);</span>
 <span class="nc" id="L311">                failed++;</span>
             }
 <span class="nc" id="L313">        } catch (Exception e) {</span>
 <span class="nc" id="L314">            System.out.println(&quot;  ❌ FAIL - Exception thrown: &quot; + e.getMessage());</span>
 <span class="nc" id="L315">            failed++;</span>
-        }
+<span class="nc" id="L316">        }</span>
 <span class="nc" id="L317">        System.out.println();</span>
 <span class="nc" id="L318">    }</span>
     
@@ -334,7 +334,7 @@ private static void testTC008() {
 <span class="nc bnc" id="L334" title="All 2 branches missed.">                if (Math.abs(actual - expected) &lt; 0.0001) {</span>
 <span class="nc" id="L335">                    System.out.println(&quot;  ✅ PASS - Highest: &quot; + actual + &quot; (expected: &quot; + expected + &quot;)&quot;);</span>
 <span class="nc" id="L336">                    passed++;</span>
-<span class="nc" id="L337">                } else {</span>
+                } else {
 <span class="nc" id="L338">                    System.out.println(&quot;  ❌ FAIL - Highest: &quot; + actual + &quot; (expected: &quot; + expected + &quot;)&quot;);</span>
 <span class="nc" id="L339">                    failed++;</span>
                 }
@@ -345,7 +345,7 @@ private static void testTC008() {
 <span class="nc" id="L345">        } catch (Exception e) {</span>
 <span class="nc" id="L346">            System.out.println(&quot;  ❌ FAIL - Exception thrown: &quot; + e.getMessage());</span>
 <span class="nc" id="L347">            failed++;</span>
-        }
+<span class="nc" id="L348">        }</span>
 <span class="nc" id="L349">        System.out.println();</span>
 <span class="nc" id="L350">    }</span>
 }

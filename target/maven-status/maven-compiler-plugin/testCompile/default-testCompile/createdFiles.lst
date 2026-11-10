@@ -3,7 +3,10 @@ fixtures\TestFixtures.class
 GradebookTest.class
 bva\TestLetterGradeBVA.class
 StudentTest.class
+roster\TestSaveToFile.class
+roster\TestClassAverage.class
 ep\TestLetterGrade.class
+students\TestAddScoreParametrized.class
 bva\TestValidateNameBVA.class
 ep\TestValidateName.class
 ep\TestRoster.class

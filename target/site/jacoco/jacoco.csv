@@ -1,8 +1,8 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-SQE Library Management System,com.library.models,Student,148,194,23,23,30,41,20,21,6,12
-SQE Library Management System,com.library.utils,GradebookUtils,8,99,1,25,2,27,2,15,1,3
-SQE Library Management System,com.library,TestRunner,811,0,32,0,223,0,31,0,15,0
-SQE Library Management System,com.library.services,PersistenceService,91,0,8,0,24,0,7,0,3,0
+SQE Library Management System,com.library.models,Student,150,194,23,23,31,43,20,21,6,12
+SQE Library Management System,com.library.utils,GradebookUtils,12,110,1,25,3,22,2,15,1,3
+SQE Library Management System,com.library,TestRunner,811,0,32,0,227,0,31,0,15,0
+SQE Library Management System,com.library.services,PersistenceService,98,0,8,0,25,0,8,0,4,0
 SQE Library Management System,com.library.services,GradeBookIOError,4,5,0,0,2,2,1,1,1,1
-SQE Library Management System,com.library.services,Roster,69,74,4,8,11,20,6,7,3,4
+SQE Library Management System,com.library.services,Roster,25,115,2,10,5,29,5,8,3,4
 SQE Library Management System,com.library.services,Gradebook,60,144,5,11,18,28,13,12,8,9

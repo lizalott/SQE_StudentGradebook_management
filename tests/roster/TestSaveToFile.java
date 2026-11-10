@@ -1,96 +1,98 @@
 package roster;
 
-import com.library.models.Student;
-import com.library.services.GradeBookIOError;
-import com.library.services.Roster;
-import fixtures.TestFixtures;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import com.library.models.Student;
+import com.library.services.GradeBookIOError;
+import com.library.services.Roster;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import fixtures.TestFixtures;
 
-@ExtendWith(MockitoExtension.class)
-@DisplayName("Roster.saveToFile() - Mocked I/O Tests")
-public class TestSaveToFile {
-    
+@DisplayName("Roster.saveToFile() Tests")
+class TestSaveToFile {
+
     private Roster roster;
-    
+
     @BeforeEach
     void setUp() {
         roster = new Roster();
     }
-    
-  
+
     @Test
     @DisplayName("saveToFile writes expected content")
-    void testSaveToFile_WritesExpectedContent() throws Exception {
+    void testSaveToFile_WritesExpectedContent() throws IOException {
         // Arrange
-        Student s1 = TestFixtures.createStudentWithScores("STU-001", "Ali Khan", 80.0, 90.0);
-        roster.addStudent(s1);
-        
-        // Mock the writer
-        PrintWriter mockWriter = mock(PrintWriter.class);
-        
-        // Act
-        // Note: Since saveToFile uses try-with-resources internally,
-        // we test the content format directly instead
-        String expectedLine = "STU-001,Ali Khan,2";
-        
-        // Assert format matches
-        assertTrue(expectedLine.matches("^STU-\\d{3},[A-Za-z ]+,\\d+$"));
+        Path tempFile = Files.createTempFile("save-test", ".txt");
+        try {
+            roster.addStudent(
+                    TestFixtures.createStudentWithScores("STU-001", "Ali", 80.0));
+
+            // Act
+            roster.saveToFile(tempFile.toString());
+
+            // Assert
+            String actual = Files.readString(tempFile);
+            assertNotNull(actual);
+            assertTrue(actual.contains("Ali"),
+                    "File should contain the student name. Actual: " + actual);
+            assertTrue(actual.contains("STU-001"),
+                    "File should contain the student ID. Actual: " + actual);
+        } finally {
+            Files.deleteIfExists(tempFile);
+        }
     }
-    
- 
+
     @Test
     @DisplayName("saveToFile throws GradeBookIOError on IO failure")
-    void testSaveToFile_IOFailure_ThrowsGradeBookIOError() {
+    void testSaveToFile_IOFailure_ThrowsGradeBookIOError() throws IOException {
         // Arrange
         Student s1 = TestFixtures.createStudentWithScores("STU-001", "Ali", 80.0);
         roster.addStudent(s1);
-        
-        // Invalid path that will cause IOException
-        String invalidPath = "/invalid/directory/that/does/not/exist/file.txt";
-        
-        // Act & Assert
-        GradeBookIOError exception = assertThrows(
-            GradeBookIOError.class,
-            () -> roster.saveToFile(invalidPath)
-        );
-        
-        assertTrue(exception.getMessage().contains("Failed to save"));
-        assertTrue(exception.getCause() instanceof IOException);
+
+        // Guaranteed-invalid path: a path *inside* a regular file
+        Path file = Files.createTempFile("not-a-dir", ".txt");
+        Path invalidPath = file.resolve("child.txt");
+        try {
+            // Act & Assert
+            GradeBookIOError ex = assertThrows(
+                    GradeBookIOError.class,
+                    () -> roster.saveToFile(invalidPath.toString()));
+
+            assertTrue(ex.getMessage().contains("Failed to save"),
+                    "Message was: " + ex.getMessage());
+            assertTrue(ex.getCause() instanceof IOException,
+                    "Cause was: " + ex.getCause());
+        } finally {
+            Files.deleteIfExists(file);
+        }
     }
-    
+
     @Test
     @DisplayName("saveToFile does not leak raw IOException")
-    void testSaveToFile_DoesNotLeakRawIOException() {
+    void testSaveToFile_DoesNotLeakRawIOException() throws IOException {
         // Arrange
-        roster.addStudent(TestFixtures.createStudentWithScores("STU-001", "Test", 80.0));
-        
-        // Act & Assert
-        assertThrows(GradeBookIOError.class, () -> {
-            roster.saveToFile("/root/cannot/write/here.txt");
-        });
-        
-        // Should NOT throw IOException directly
+        roster.addStudent(
+                TestFixtures.createStudentWithScores("STU-001", "Test", 80.0));
+
+        Path file = Files.createTempFile("not-a-dir", ".txt");
+        Path invalidPath = file.resolve("child.txt");
         try {
-            roster.saveToFile("/root/cannot/write/here.txt");
-            fail("Expected GradeBookIOError");
-        } catch (GradeBookIOError e) {
-            // Expected - custom exception
-            assertNotNull(e.getCause());
-        } catch (Exception e) {
-            fail("Should throw GradeBookIOError, not " + e.getClass().getSimpleName());
+            // Act & Assert: exception must be GradeBookIOError, NOT raw IOException
+            GradeBookIOError ex = assertThrows(
+                    GradeBookIOError.class,
+                    () -> roster.saveToFile(invalidPath.toString()));
+            assertNotNull(ex.getCause());
+        } finally {
+            Files.deleteIfExists(file);
         }
     }
 }

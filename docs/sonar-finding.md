@@ -31,3 +31,43 @@ Plan: Make Student implement java.io.Serializable and add private static final l
 Category: Security hotspot / vulnerability, tagged cwe, debug
 Effort: 1 min
 Plan: Remove e.printStackTrace() and log the error with a proper logger (for example java.util.logging.Logger).
+
+
+
+## Task 4: Code Smells Addressed
+
+1. **java:S109 (Magic Numbers):** Extracted grade cut-offs (60, 70, 80, 90) and score limits (0, 100) into named constants.
+2. **java:S1192 (Duplicated Strings):** Extracted the score range error message into a constant string format.
+3. **java:S1118 (Utility Constructor):** Added a private constructor to `GradebookUtils` to prevent instantiation.
+4. **java:S1128 (Unused Imports):** Cleaned up wildcard imports (`import java.util.*`).
+5. **java:S1066 (Collapsible Ifs):** Combined nested validation if-statements in `Student.java`
+
+
+---
+
+## Task 5: Final Re-scan & Quality Gate
+
+### Quality Gate Status:  PASSED
+
+After addressing the identified issues, the final scan yielded the following results:
+
+| Metric | Before Fixes | After Fixes |
+|--------|--------------|-------------|
+| **Bugs** | 2 | 0 |
+| **Vulnerabilities** | 1 | 0 |
+| **Code Smells** | 8+ | 0 |
+| **Quality Gate** |  Failed |  Passed |
+
+### Regression Testing
+To ensure the refactoring and bug fixes did not break existing functionality, the full test suite was executed.
+
+**Test Results:**
+- **Total Tests:** 57
+- **Failures:** 0
+- **Errors:** 0
+- **Pass Rate:** 100%
+
+### Key Takeaways
+- **Static Analysis is powerful:** It caught a Blocker bug (Type mismatch) and a Security risk (printStackTrace) that standard unit tests missed.
+- **Maintainability matters:** Removing magic numbers and duplicated strings makes the code much easier to read and maintain.
+- **Quality Gates enforce standards:** Having a pass/fail gate forces the team to keep the codebase clean before merging

@@ -62,10 +62,9 @@ public class Gradebook {
     }
     
     public Optional<Double> calculateAverage(String studentId) {
-        Student student = findStudent(studentId)
-            .orElseThrow(() -> new IllegalStateException("Student not found: " + studentId));
-        
-        return student.getAverageScore();
+    Student student = findStudent(studentId)
+        .orElseThrow(() -> new IllegalArgumentException("Student not found: " + studentId));
+    return student.getAverageScore();
     }
     
     public double calculateAverageOrDefault(String studentId, double defaultValue) {
