@@ -1,5 +1,5 @@
 package com.library.models;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +7,8 @@ import java.util.Optional;
 /**
  * Represents a student in the library management system.
  */
-public class Student {
+public class Student implements Serializable {
+    private static final long serialVersionUID = 1L; // Good practice
     
     private String name;
     private String studentId;

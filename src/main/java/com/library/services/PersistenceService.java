@@ -42,9 +42,10 @@ public class PersistenceService {
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error saving student: " + e.getMessage(), e);
         }
+        studentCache.put(student.getStudentId(), student);        
     }
 
-    /**
+        /**
      * Loads a student from persistent storage by ID.
      */
     public Student loadStudent(String studentId) {
@@ -67,4 +68,9 @@ public class PersistenceService {
 
         return null;
     }
+
+    public Map<String, Student> getAllStudents() {
+        return this.studentCache;
+    }    
+
 }

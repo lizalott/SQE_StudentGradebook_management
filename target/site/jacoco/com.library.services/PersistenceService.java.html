@@ -17,55 +17,61 @@ import com.library.models.Student;
  */
 public class PersistenceService {
 
-<span class="nc" id="L20">    private static final Logger LOGGER =</span>
-<span class="nc" id="L21">            Logger.getLogger(PersistenceService.class.getName());</span>
+<span class="fc" id="L20">    private static final Logger LOGGER =</span>
+<span class="fc" id="L21">            Logger.getLogger(PersistenceService.class.getName());</span>
 
     private static final String DATA_FILE = &quot;students.dat&quot;;
     private Map&lt;String, Student&gt; studentCache;
 
-<span class="nc" id="L26">    public PersistenceService() {</span>
-<span class="nc" id="L27">        this.studentCache = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L28">    }</span>
+<span class="fc" id="L26">    public PersistenceService() {</span>
+<span class="fc" id="L27">        this.studentCache = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L28">    }</span>
 
     /**
      * Saves a student to persistent storage.
      */
     public void saveStudent(Student student) {        // ✅ Student, not String
-<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (student == null) {</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        if (student == null) {</span>
 <span class="nc" id="L35">            throw new IllegalArgumentException(&quot;Student cannot be null&quot;);</span>
         }
 
-<span class="nc" id="L38">        try (ObjectOutputStream oos = new ObjectOutputStream(</span>
+<span class="fc" id="L38">        try (ObjectOutputStream oos = new ObjectOutputStream(</span>
                 new FileOutputStream(DATA_FILE))) {
-<span class="nc" id="L40">            oos.writeObject(student);</span>
-<span class="nc" id="L41">            LOGGER.log(Level.INFO, &quot;Student saved successfully: &quot; + student.getName());</span>
+<span class="fc" id="L40">            oos.writeObject(student);</span>
+<span class="fc" id="L41">            LOGGER.log(Level.INFO, &quot;Student saved successfully: &quot; + student.getName());</span>
 <span class="nc" id="L42">        } catch (IOException e) {</span>
 <span class="nc" id="L43">            LOGGER.log(Level.SEVERE, &quot;Error saving student: &quot; + e.getMessage(), e);</span>
-<span class="nc" id="L44">        }</span>
-<span class="nc" id="L45">    }</span>
+<span class="fc" id="L44">        }</span>
+<span class="fc" id="L45">        studentCache.put(student.getStudentId(), student);        </span>
+<span class="fc" id="L46">    }</span>
 
-    /**
+        /**
      * Loads a student from persistent storage by ID.
      */
     public Student loadStudent(String studentId) {
-<span class="nc bnc" id="L51" title="All 4 branches missed.">        if (studentId == null || studentId.trim().isEmpty()) {</span>
-<span class="nc" id="L52">            throw new IllegalArgumentException(&quot;Student ID cannot be null or empty&quot;);</span>
+<span class="pc bpc" id="L52" title="2 of 4 branches missed.">        if (studentId == null || studentId.trim().isEmpty()) {</span>
+<span class="nc" id="L53">            throw new IllegalArgumentException(&quot;Student ID cannot be null or empty&quot;);</span>
         }
 
-<span class="nc" id="L55">        try (ObjectInputStream ois = new ObjectInputStream(</span>
+<span class="fc" id="L56">        try (ObjectInputStream ois = new ObjectInputStream(</span>
                 new FileInputStream(DATA_FILE))) {
-<span class="nc" id="L57">            Student student = (Student) ois.readObject();</span>
+<span class="fc" id="L58">            Student student = (Student) ois.readObject();</span>
 
             // Verify it's the right student
-<span class="nc bnc" id="L60" title="All 2 branches missed.">            if (student.getStudentId().equals(studentId)) {</span>
-<span class="nc" id="L61">                LOGGER.log(Level.INFO, &quot;Student loaded: &quot; + student.getName());</span>
-<span class="nc" id="L62">                return student;</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">            if (student.getStudentId().equals(studentId)) {</span>
+<span class="fc" id="L62">                LOGGER.log(Level.INFO, &quot;Student loaded: &quot; + student.getName());</span>
+<span class="fc" id="L63">                return student;</span>
             }
-<span class="nc" id="L64">        } catch (IOException | ClassNotFoundException e) {</span>
-<span class="nc" id="L65">            LOGGER.log(Level.SEVERE, &quot;Error loading student: &quot; + e.getMessage(), e);</span>
-<span class="nc" id="L66">        }</span>
+<span class="fc" id="L65">        } catch (IOException | ClassNotFoundException e) {</span>
+<span class="fc" id="L66">            LOGGER.log(Level.SEVERE, &quot;Error loading student: &quot; + e.getMessage(), e);</span>
+<span class="fc" id="L67">        }</span>
 
-<span class="nc" id="L68">        return null;</span>
+<span class="fc" id="L69">        return null;</span>
     }
+
+    public Map&lt;String, Student&gt; getAllStudents() {
+<span class="fc" id="L73">        return this.studentCache;</span>
+    }    
+
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

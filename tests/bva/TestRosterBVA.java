@@ -1,7 +1,9 @@
 package bva;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,14 +31,16 @@ public class TestRosterBVA {
     }
     
     @Test
-    @DisplayName("BVA: 1 score (value) - should pass")
-    void testBoundary_1Score_Passes() {
-        // Arrange
-        student.addScore(85.0);
-        
-        // Act & Assert
-        assertDoesNotThrow(() -> GradebookUtils.validateScoreCount(student));
-    }
+@DisplayName("BVA: 1 score (value) - should pass")
+void testBoundary_1Score_Passes() {
+    student.addScore(85.0);
+    
+    assertTrue(GradebookUtils.validateScoreCount(student), 
+        "Method should return true for a valid score count");
+    
+    assertEquals(1, student.getScoreCount(), 
+        "Student should still have exactly 1 score");
+}
     
     @Test
     @DisplayName("BVA: 2 scores (value+1) - should pass")
